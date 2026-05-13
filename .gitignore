@@ -7,5 +7,6 @@ foo.*
 *.log
 data
 client_*
+*.DS_Store
 
 plugins
