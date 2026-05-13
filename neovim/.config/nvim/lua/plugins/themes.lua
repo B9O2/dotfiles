@@ -8,6 +8,9 @@ local themes = {
     name = "rose-pine",
     opts = {
       styles = { transparency = true },
+      highlight_groups = {
+        Visual = { bg = "#403d52", fg = "#e0def4", inherit = false },
+      },
     },
     variant_format = "rose-pine-%s",
   },

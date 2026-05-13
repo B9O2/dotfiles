@@ -9,4 +9,4 @@ data
 client_*
 *.DS_Store
 
-plugins
+tmux/.config/tmux/plugins
