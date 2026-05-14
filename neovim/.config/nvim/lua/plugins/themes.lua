@@ -9,7 +9,8 @@ local themes = {
     opts = {
       styles = { transparency = true },
       highlight_groups = {
-        Visual = { bg = "muted", fg = "base", inherit = false },
+        -- Visual = { bg = "muted", fg = "base", inherit = false },
+        Visual = { bg = "rose", fg = "base", inherit = false },
       },
     },
     variant_format = "rose-pine-%s",
