@@ -65,4 +65,4 @@ macos-icon = custom
 macos-custom-icon = ~/.config/ghostty/Ghostty.icns
 
 # Bell
-bell-features = no-system
+bell-features = no-system,no-audio,no-attention,no-title,no-border
