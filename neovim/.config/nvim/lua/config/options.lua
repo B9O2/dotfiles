@@ -5,7 +5,7 @@
 vim.opt.spelllang:append("cjk")
 vim.opt.colorcolumn = "80"
 vim.opt.number = false
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 vim.g.lazyvim_picker = "snacks"
 -- vim.g.lazyvim_picker = "telescope"
