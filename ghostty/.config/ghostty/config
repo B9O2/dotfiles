@@ -19,7 +19,7 @@
 # ==========================
 # # The config file consists of simple key-value pairs,
 # # separated by equals signs.
-macos-non-native-fullscreen = true
+macos-non-native-fullscreen = false
 macos-window-shadow = false
 macos-option-as-alt = left
 
