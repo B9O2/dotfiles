@@ -16,7 +16,9 @@ return {
     },
   },
 
-  init = function()
+  event = "VeryLazy",
+  config = function(_, opts)
+    require("haunt").setup(opts)
     local haunt = require("haunt.api")
     local haunt_picker = require("haunt.picker")
     local wk = require("which-key")

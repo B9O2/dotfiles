@@ -975,7 +975,7 @@ require('lazy').setup({
           notification = '%H:%M',
           history = '%H:%M %d/%m',
         },
-        timeout = 5000,
+        timeout = 500,
         top_of_buf = true,
       }
       vim.notify = require 'notify'

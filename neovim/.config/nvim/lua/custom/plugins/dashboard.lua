@@ -20,6 +20,7 @@ end
 return {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
+  cond = function() return vim.fn.argc() == 0 end,
   opts = function()
     -- 1. Aperture Science ASCII Logo (保持之前的配置)
     local aperture_logo = {
