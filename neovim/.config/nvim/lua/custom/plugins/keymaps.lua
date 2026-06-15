@@ -102,6 +102,9 @@ map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move Down' })
 map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move Up' })
 map('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
 map('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
+-- 可视模式下使用大写 J 和 K 上下移动代码块
+map('v', 'J', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
+map('v', 'K', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
 
 -- buffers
 map('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
@@ -219,12 +222,8 @@ map('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
 map('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
 
 -- ============================================================================
--- 3. SPECIFIC PLUGINS (Telescope Notify)
+-- 3. SPECIFIC PLUGINS
 -- ============================================================================
-map('n', '<leader>nn', function()
-  require('telescope').load_extension 'notify'
-  require('telescope').extensions.notify.notify()
-end, { desc = 'View Notification History' })
 
 -- ============================================================================
 -- 4. GIT KEYMAPS (Lazygit & Gitsigns)

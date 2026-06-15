@@ -15,7 +15,7 @@ return {
     indent = { enabled = true },
     -- input = { enabled = true },
     picker = { enabled = true },
-    -- notifier = { enabled = true },
+    notifier = { enabled = true },
     -- quickfile = { enabled = true },
     -- scope = { enabled = true },
     -- scroll = { enabled = true },
@@ -64,6 +64,20 @@ return {
         Snacks.picker.grep()
       end,
       desc = 'Search Grep (Snacks)',
+    },
+    {
+      '<leader>un',
+      function()
+        Snacks.notifier.hide()
+      end,
+      desc = 'Dismiss All Notifications',
+    },
+    {
+      '<leader>nn',
+      function()
+        Snacks.notifier.show_history()
+      end,
+      desc = 'Notification History',
     },
   },
 }
