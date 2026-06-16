@@ -18,5 +18,21 @@ return {
         desc = "Rename (inc-rename.nvim)",
       },
     },
+    opts = {
+	    nixd = {
+		nixpkgs = {
+			expr = "import <nixpkgs> { }",
+		      },
+		      formatting = {
+			command = { "nixfmt" }, -- 告诉 nixd 使用我们刚装好的 nixfmt-rfc-style
+		      },
+		      options = {
+			-- 让 LSP 知道你的 NixOS 系统配置，开启配置项的自动补全
+			nixos = {
+			  expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.nixos.options',
+			},
+		      },
+	    }
+    }
   },
 }
