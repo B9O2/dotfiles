@@ -217,18 +217,18 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 --  See `:help lua-guide-autocommands`
 
 -- Automatically change the working directory if launched with a directory argument (e.g. `nvim ~/.config/nvim-mine`)
-vim.api.nvim_create_autocmd("VimEnter", {
-  desc = "Auto change directory and open file tree if opening a folder",
+vim.api.nvim_create_autocmd('VimEnter', {
+  desc = 'Auto change directory and open file tree if opening a folder',
   callback = function()
     local arg = vim.fn.argv(0)
-    if arg ~= "" and vim.fn.isdirectory(arg) == 1 then
+    if arg ~= '' and vim.fn.isdirectory(arg) == 1 then
       vim.api.nvim_set_current_dir(arg)
       -- Explicitly open Snacks explorer to show the folder contents
       vim.schedule(function()
-        if package.loaded["snacks"] then
-          require("snacks").explorer({ cwd = arg })
+        if package.loaded['snacks'] then
+          require('snacks').explorer { cwd = arg }
         else
-          vim.cmd("Explore") -- fallback to netrw if snacks isn't ready
+          vim.cmd 'Explore' -- fallback to netrw if snacks isn't ready
         end
       end)
     end
@@ -338,22 +338,100 @@ require('lazy').setup({
   },
   {
     -- Add Snacks.picker keymaps that replace Telescope
-    "folke/snacks.nvim",
+    'folke/snacks.nvim',
     opts = { picker = { enabled = true } },
     keys = {
-      { "<leader>sh", function() Snacks.picker.help() end, desc = "[S]earch [H]elp" },
-      { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "[S]earch [K]eymaps" },
-      { "<leader>sf", function() Snacks.picker.files() end, desc = "[S]earch [F]iles" },
-      { "<leader>sp", function() Snacks.picker.pickers() end, desc = "[S]earch [P]ickers" },
-      { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "[S]earch [S]ymbols" },
-      { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "[S]earch Workspace [S]ymbols" },
-      { "<leader>sw", function() Snacks.picker.grep_word() end, desc = "[S]earch current [W]ord" },
-      { "<leader>sg", function() Snacks.picker.grep() end, desc = "[S]earch by [G]rep" },
-      { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "[S]earch [D]iagnostics" },
-      { "<leader>sr", function() Snacks.picker.resume() end, desc = "[S]earch [R]esume" },
-      { "<leader>s.", function() Snacks.picker.recent() end, desc = '[S]earch Recent Files ("." for repeat)' },
-      { "<leader><leader>", function() Snacks.picker.buffers() end, desc = "[ ] Find existing buffers" },
-      { "<leader>sn", function() Snacks.picker.files({ cwd = vim.fn.stdpath 'config' }) end, desc = '[S]earch [N]eovim files' },
+      {
+        '<leader>sh',
+        function()
+          Snacks.picker.help()
+        end,
+        desc = '[S]earch [H]elp',
+      },
+      {
+        '<leader>sk',
+        function()
+          Snacks.picker.keymaps()
+        end,
+        desc = '[S]earch [K]eymaps',
+      },
+      {
+        '<leader>sf',
+        function()
+          Snacks.picker.files()
+        end,
+        desc = '[S]earch [F]iles',
+      },
+      {
+        '<leader>sp',
+        function()
+          Snacks.picker.pickers()
+        end,
+        desc = '[S]earch [P]ickers',
+      },
+      {
+        '<leader>ss',
+        function()
+          Snacks.picker.lsp_symbols()
+        end,
+        desc = '[S]earch [S]ymbols',
+      },
+      {
+        '<leader>sS',
+        function()
+          Snacks.picker.lsp_workspace_symbols()
+        end,
+        desc = '[S]earch Workspace [S]ymbols',
+      },
+      {
+        '<leader>sw',
+        function()
+          Snacks.picker.grep_word()
+        end,
+        desc = '[S]earch current [W]ord',
+      },
+      {
+        '<leader>sg',
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = '[S]earch by [G]rep',
+      },
+      {
+        '<leader>sd',
+        function()
+          Snacks.picker.diagnostics()
+        end,
+        desc = '[S]earch [D]iagnostics',
+      },
+      {
+        '<leader>sr',
+        function()
+          Snacks.picker.resume()
+        end,
+        desc = '[S]earch [R]esume',
+      },
+      {
+        '<leader>s.',
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = '[S]earch Recent Files ("." for repeat)',
+      },
+      {
+        '<leader><leader>',
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = '[ ] Find existing buffers',
+      },
+      {
+        '<leader>sn',
+        function()
+          Snacks.picker.files { cwd = vim.fn.stdpath 'config' }
+        end,
+        desc = '[S]earch [N]eovim files',
+      },
     },
   },
 
@@ -439,16 +517,22 @@ require('lazy').setup({
           map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
           -- Find references for the word under your cursor.
-          map('grr', function() Snacks.picker.lsp_references() end, '[G]oto [R]eferences')
+          map('grr', function()
+            Snacks.picker.lsp_references()
+          end, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
-          map('gri', function() Snacks.picker.lsp_implementations() end, '[G]oto [I]mplementation')
+          map('gri', function()
+            Snacks.picker.lsp_implementations()
+          end, '[G]oto [I]mplementation')
 
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('grd', function() Snacks.picker.lsp_definitions() end, '[G]oto [D]efinition')
+          map('grd', function()
+            Snacks.picker.lsp_definitions()
+          end, '[G]oto [D]efinition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -456,16 +540,22 @@ require('lazy').setup({
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('gO', function() Snacks.picker.lsp_symbols() end, 'Open Document Symbols')
+          map('gO', function()
+            Snacks.picker.lsp_symbols()
+          end, 'Open Document Symbols')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('gW', function() Snacks.picker.lsp_workspace_symbols() end, 'Open Workspace Symbols')
+          map('gW', function()
+            Snacks.picker.lsp_workspace_symbols()
+          end, 'Open Workspace Symbols')
 
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('grt', function() Snacks.picker.lsp_type_definitions() end, '[G]oto [T]ype Definition')
+          map('grt', function()
+            Snacks.picker.lsp_type_definitions()
+          end, '[G]oto [T]ype Definition')
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
@@ -568,7 +658,14 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {},
+        nixd = {
+          nixpkgs = {
+            expr = 'import <nixpkgs> { }',
+          },
+          formatting = {
+            command = { 'nixfmt' }, -- 告诉 nixd 使用我们刚装好的 nixfmt-rfc-style
+          },
+        },
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -581,6 +678,19 @@ require('lazy').setup({
         -- ts_ls = {},
         --
 
+        clangd = {
+          -- 1. 强制 LSP 自动启动
+          autostart = true,
+          -- 2. 明确告诉 Neovim 在遇到这些文件时触发 clangd
+          filetypes = { 'c', 'cpp', 'objc', 'objcpp' },
+          cmd = {
+            'clangd',
+            '--background-index',
+            '--clang-tidy',
+            '--header-insertion=iwyu',
+            '--query-driver=/nix/store/*',
+          },
+        },
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -613,6 +723,8 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'nixd',
+        'nixfmt',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -831,8 +943,24 @@ require('lazy').setup({
     config = function()
       -- Automatically install parsers
       local parsers = {
-        'bash', 'c', 'cpp', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'go', 'gomod', 'gowork', 'gosum','nix'
-    }
+        'bash',
+        'c',
+        'cpp',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'go',
+        'gomod',
+        'gowork',
+        'gosum',
+        'nix',
+      }
       pcall(function()
         require('nvim-treesitter').install(parsers)
       end)
