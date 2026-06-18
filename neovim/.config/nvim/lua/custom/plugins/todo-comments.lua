@@ -1,15 +1,15 @@
 return {
   "folke/todo-comments.nvim",
   event = { "BufReadPre", "BufNewFile" },
+  dependencies = { "nvim-lua/plenary.nvim" },
   opts = {
+    signs = false,
     highlight = {
       pattern = [[.*<(KEYWORDS)\s*[^:]*:]],
     },
     search = {
       pattern = [[\b(KEYWORDS)\s*[^:]*:]],
     },
-    -- Problem #1: bb
-    -- PROBLEM: aa
     keywords = {
       PROBLEM = {
         icon = "?",
