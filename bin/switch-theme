@@ -31,16 +31,19 @@ if [ -f "$THEME_DIR/tmux.conf" ]; then
 fi
 
 # Update env var
-echo "export COLOR_SCHEMA=\"$THEME\"" > "$ENV_FILE"
+echo "export COLOR_SCHEME=\"$THEME\"" > "$ENV_FILE"
 
 # Copy fzf colors into env if exists
 if [ -f "$THEME_DIR/fzf.env" ]; then
   cat "$THEME_DIR/fzf.env" >> "$ENV_FILE"
+else
+  echo 'export FZF_DEFAULT_OPTS="$FZF_BASE_OPTS"' >> "$ENV_FILE"
 fi
 
 # Reload tmux if running
 if command -v tmux >/dev/null 2>&1; then
   tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true
+  tmux refresh-client 2>/dev/null || true
 fi
 
 # Tell Ghostty to reload its configuration

@@ -13,9 +13,11 @@ return {
     },
     config = function(_, opts)
       require("rose-pine").setup(opts)
-      local color_schema = vim.env.COLOR_SCHEMA or "rose-pine"
-      if color_schema == "rose-pine" then
+      local color_scheme = vim.env.COLOR_SCHEME or "rose-pine"
+      if color_scheme == "rose-pine" then
         vim.cmd("colorscheme rose-pine-moon")
+      elseif color_scheme == "rose-pine-dawn" then
+        vim.cmd("colorscheme rose-pine-dawn")
       end
     end,
   },
@@ -30,8 +32,8 @@ return {
     },
     config = function(_, opts)
       require("tokyonight").setup(opts)
-      local color_schema = vim.env.COLOR_SCHEMA or "rose-pine"
-      if color_schema == "tokyonight" then
+      local color_scheme = vim.env.COLOR_SCHEME or "rose-pine"
+      if color_scheme == "tokyonight" then
         vim.cmd("colorscheme tokyonight-storm")
       end
     end,
