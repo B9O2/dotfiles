@@ -8,5 +8,6 @@ foo.*
 data
 client_*
 *.DS_Store
+.zshrc.local
 
-tmux/.config/tmux/plugins
+# tmux/.config/tmux/plugins

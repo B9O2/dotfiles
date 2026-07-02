@@ -1,0 +1,12 @@
+[submodule "/Users/pacman/.dotfiles/zsh/.zsh_plugins/zsh-vi-mode"]
+	path = /Users/pacman/.dotfiles/zsh/.zsh_plugins/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode.git
+[submodule "tmux/.config/tmux/plugins/tpm"]
+	path = tmux/.config/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
+[submodule "tmux/.config/tmux/plugins/tmux-sensible"]
+	path = tmux/.config/tmux/plugins/tmux-sensible
+	url = https://github.com/tmux-plugins/tmux-sensible.git
+[submodule "zsh/.zsh_plugins/zsh-vi-mode"]
+	path = zsh/.zsh_plugins/zsh-vi-mode
+	url = https://github.com/jeffreytse/zsh-vi-mode.git
