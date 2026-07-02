@@ -33,11 +33,28 @@ fi
 # Update env var
 echo "export COLOR_SCHEME=\"$THEME\"" > "$ENV_FILE"
 
-# Copy fzf colors into env if exists
-if [ -f "$THEME_DIR/fzf.env" ]; then
-  cat "$THEME_DIR/fzf.env" >> "$ENV_FILE"
-else
-  echo 'export FZF_DEFAULT_OPTS="$FZF_BASE_OPTS"' >> "$ENV_FILE"
+# Append theme-specific environment variables (e.g. FZF)
+if [ -f "$THEME_DIR/env.sh" ]; then
+  cat "$THEME_DIR/env.sh" >> "$ENV_FILE"
+fi
+
+# Update agy (Antigravity CLI) theme if specified
+AGY_SETTINGS="$HOME/.gemini/antigravity-cli/settings.json"
+if [ -f "$THEME_DIR/agy_theme" ] && [ -f "$AGY_SETTINGS" ]; then
+  AGY_COLOR_SCHEME=$(cat "$THEME_DIR/agy_theme")
+  if grep -q '"colorScheme"' "$AGY_SETTINGS"; then
+    awk -v scheme="$AGY_COLOR_SCHEME" '{
+      if ($0 ~ /"colorScheme":/) {
+        sub(/"colorScheme":[ \t]*"[^"]*"/, "\"colorScheme\": \"" scheme "\"")
+      }
+      print
+    }' "$AGY_SETTINGS" > "${AGY_SETTINGS}.tmp" && mv "${AGY_SETTINGS}.tmp" "$AGY_SETTINGS"
+  else
+    awk -v scheme="$AGY_COLOR_SCHEME" '
+    NR==1 { print; print "  \"colorScheme\": \"" scheme "\","; next }
+    { print }
+    ' "$AGY_SETTINGS" > "${AGY_SETTINGS}.tmp" && mv "${AGY_SETTINGS}.tmp" "$AGY_SETTINGS"
+  fi
 fi
 
 # Reload tmux if running

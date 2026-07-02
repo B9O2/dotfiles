@@ -1,3 +1,4 @@
+
 export FZF_DEFAULT_OPTS="$FZF_BASE_OPTS
 	--color=fg:#c5cdd9,bg:#262729,hl:#6cb6eb 
 	--color=fg+:#c5cdd9,bg+:#262729,hl+:#5dbbc1 
