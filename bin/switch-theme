@@ -33,6 +33,11 @@ fi
 # Update env var
 echo "export COLOR_SCHEMA=\"$THEME\"" > "$ENV_FILE"
 
+# Copy fzf colors into env if exists
+if [ -f "$THEME_DIR/fzf.env" ]; then
+  cat "$THEME_DIR/fzf.env" >> "$ENV_FILE"
+fi
+
 # Reload tmux if running
 if command -v tmux >/dev/null 2>&1; then
   tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true

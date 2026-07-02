@@ -21,6 +21,12 @@ _load_theme_env() {
 add-zsh-hook precmd _load_theme_env
 _load_theme_env # Also load it immediately on startup
 
+# Load fzf (gracefully fallback if not installed)
+# Since zsh-vi-mode overrides keybindings, we MUST load fzf after zsh-vi-mode initializes
+function zvm_after_init() {
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+}
+
 source $HOME/.zshrc.local
 
 # switch-theme auto-completion
@@ -34,3 +40,8 @@ _switch_theme_completion() {
   _describe 'themes' themes
 }
 compdef _switch_theme_completion switch-theme
+
+# Initialize Starship prompt if installed
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
