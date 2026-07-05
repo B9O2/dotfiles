@@ -33,8 +33,9 @@ background-blur-radius = 20
 
 font-family = Google Sans Code
 font-size = 18
-# Automatic dark/light switching
-theme = dark:Rose Pine Moon,light:Rose Pine Moon
+
+# Dynamically loaded theme (controlled by switch-theme script)
+config-file = ?theme
 
 # Or set individual themes
 # theme = Rose Pine

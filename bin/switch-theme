@@ -1,0 +1,71 @@
+#!/bin/bash
+
+THEME=$1
+THEMES_DIR=~/.dotfiles/themes
+
+if [ -z "$THEME" ]; then
+  echo "Usage: switch-theme <theme-name>"
+  echo "Available themes: $(ls "$THEMES_DIR" | tr '\n' ' ')"
+  exit 1
+fi
+
+THEME_DIR="$THEMES_DIR/$THEME"
+if [ ! -d "$THEME_DIR" ]; then
+  echo "Unknown theme: $THEME"
+  echo "Available themes: $(ls "$THEMES_DIR" | tr '\n' ' ')"
+  exit 1
+fi
+
+GHOSTTY_THEME_FILE=~/.dotfiles/ghostty/.config/ghostty/theme
+TMUX_THEME_FILE=~/.dotfiles/tmux/.config/tmux/theme.conf
+ENV_FILE=~/.theme_env
+
+# Copy ghostty conf if exists
+if [ -f "$THEME_DIR/ghostty.conf" ]; then
+  cp "$THEME_DIR/ghostty.conf" "$GHOSTTY_THEME_FILE"
+fi
+
+# Copy tmux conf if exists
+if [ -f "$THEME_DIR/tmux.conf" ]; then
+  cp "$THEME_DIR/tmux.conf" "$TMUX_THEME_FILE"
+fi
+
+# Update env var
+echo "export COLOR_SCHEME=\"$THEME\"" > "$ENV_FILE"
+
+# Append theme-specific environment variables (e.g. FZF)
+if [ -f "$THEME_DIR/env.sh" ]; then
+  cat "$THEME_DIR/env.sh" >> "$ENV_FILE"
+fi
+
+# Update agy (Antigravity CLI) theme if specified
+AGY_SETTINGS="$HOME/.gemini/antigravity-cli/settings.json"
+if [ -f "$THEME_DIR/agy_theme" ] && [ -f "$AGY_SETTINGS" ]; then
+  AGY_COLOR_SCHEME=$(cat "$THEME_DIR/agy_theme")
+  if grep -q '"colorScheme"' "$AGY_SETTINGS"; then
+    awk -v scheme="$AGY_COLOR_SCHEME" '{
+      if ($0 ~ /"colorScheme":/) {
+        sub(/"colorScheme":[ \t]*"[^"]*"/, "\"colorScheme\": \"" scheme "\"")
+      }
+      print
+    }' "$AGY_SETTINGS" > "${AGY_SETTINGS}.tmp" && mv "${AGY_SETTINGS}.tmp" "$AGY_SETTINGS"
+  else
+    awk -v scheme="$AGY_COLOR_SCHEME" '
+    NR==1 { print; print "  \"colorScheme\": \"" scheme "\","; next }
+    { print }
+    ' "$AGY_SETTINGS" > "${AGY_SETTINGS}.tmp" && mv "${AGY_SETTINGS}.tmp" "$AGY_SETTINGS"
+  fi
+fi
+
+# Reload tmux if running
+if command -v tmux >/dev/null 2>&1; then
+  tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true
+  tmux refresh-client 2>/dev/null || true
+fi
+
+# Tell Ghostty to reload its configuration
+pkill -USR2 -i ghostty || true
+
+echo "Theme switched to $THEME"
+echo "Ghostty and Tmux have been reloaded."
+echo "Note: Zsh and Neovim will use the new theme automatically."

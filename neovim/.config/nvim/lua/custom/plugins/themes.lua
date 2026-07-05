@@ -1,43 +1,41 @@
 -- Dynamic Theme
-local theme_name = "rose_pine"
-local variant_name = "moon"
-
-local themes = {
-  rose_pine = {
+return {
+  {
     "rose-pine/neovim",
     name = "rose-pine",
+    lazy = false,
+    priority = 1000,
     opts = {
       styles = { transparency = true },
       highlight_groups = {
-        -- Visual = { bg = "muted", fg = "base", inherit = false },
         Visual = { bg = "rose", fg = "base", inherit = false },
       },
     },
-    variant_format = "rose-pine-%s",
+    config = function(_, opts)
+      require("rose-pine").setup(opts)
+      local color_scheme = vim.env.COLOR_SCHEME or "rose-pine"
+      if color_scheme == "rose-pine" then
+        vim.cmd("colorscheme rose-pine-moon")
+      elseif color_scheme == "rose-pine-dawn" then
+        vim.cmd("colorscheme rose-pine-dawn")
+      end
+    end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    name = "tokyonight",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      style = "storm",
+      transparent = true,
+    },
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
+      local color_scheme = vim.env.COLOR_SCHEME or "rose-pine"
+      if color_scheme == "tokyonight" then
+        vim.cmd("colorscheme tokyonight-storm")
+      end
+    end,
   },
 }
-
-local theme = themes[theme_name]
-if theme then
-  theme.lazy = false
-  theme.priority = 1000
-
-  local cmd = nil
-  if theme.variant_format then
-    cmd = "colorscheme " .. string.format(theme.variant_format, variant_name)
-  else
-    cmd = "colorscheme " .. theme.name
-  end
-
-  theme.config = function(_, opts)
-    -- If there's an original config, we might want to call it, but here we just set the colorscheme
-    if theme.name == "rose-pine" then require("rose-pine").setup(opts) end
-    vim.cmd(cmd)
-  end
-
-  return {
-    theme,
-  }
-end
-
-return {}
