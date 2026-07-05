@@ -10,3 +10,6 @@
 [submodule "zsh/.zsh_plugins/zsh-vi-mode"]
 	path = zsh/.zsh_plugins/zsh-vi-mode
 	url = https://github.com/jeffreytse/zsh-vi-mode.git
+[submodule "ghostty/.config/ghostty/shaders"]
+	path = ghostty/.config/ghostty/shaders
+	url = https://github.com/0xhckr/ghostty-shaders.git
