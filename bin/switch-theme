@@ -57,6 +57,17 @@ if [ -f "$THEME_DIR/agy_theme" ] && [ -f "$AGY_SETTINGS" ]; then
   fi
 fi
 
+# Update Doom Emacs theme if specified
+if [ -f "$THEME_DIR/emacs_theme" ]; then
+  EMACS_THEME=$(cat "$THEME_DIR/emacs_theme")
+  echo "(setq doom-theme '$EMACS_THEME)" > "$HOME/.config/doom/theme.el"
+  
+  # If emacs server is running, load the theme dynamically
+  if pgrep -x "emacs" > /dev/null || pgrep -x "emacsclient" > /dev/null; then
+    emacsclient -e "(load-theme '$EMACS_THEME t)" > /dev/null 2>&1 || true
+  fi
+fi
+
 # Reload tmux if running
 if command -v tmux >/dev/null 2>&1; then
   tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true

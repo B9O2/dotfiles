@@ -7,6 +7,7 @@
 source $HOME/.zsh_plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 alias v='nvim'
+alias e='emacsclient -t'
 
 # Add dotfiles bin to PATH for switch-theme script
 export PATH="$HOME/.dotfiles/bin:$PATH"
