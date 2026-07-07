@@ -78,4 +78,64 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-(setq projectile-switch-project-action #'magit-status)
+(setq projectile-switch-project-action #'projectile-dired)
+
+;; Treesit Language Source
+(setq treesit-language-source-alist
+      '((rust "https://github.com/tree-sitter/tree-sitter-rust" "master" "v0.21.2")))
+
+(after! eglot
+  (add-to-list 'eglot-ignored-server-capabilities :semanticTokensProvider))
+
+;; Align rose-pine-dawn with Neovim
+(custom-theme-set-faces! 'doom-rose-pine-dawn
+  '(font-lock-type-face :foreground "#56949f" :slant normal)
+  '(font-lock-builtin-face :foreground "#286983")
+  '(font-lock-function-name-face :foreground "#d7827e")
+  '(font-lock-keyword-face :foreground "#286983")
+  '(font-lock-constant-face :foreground "#ea9d34")
+  '(font-lock-function-call-face :foreground "#d7827e")
+  '(rustic-derive-type-face :foreground "#ea9d34")
+  '(tree-sitter-hl-face:type :foreground "#56949f")
+  '(tree-sitter-hl-face:type.builtin :foreground "#56949f")
+  '(tree-sitter-hl-face:constructor :foreground "#ea9d34")
+  '(tree-sitter-hl-face:constant :foreground "#ea9d34")
+  '(tree-sitter-hl-face:variable.builtin :foreground "#b4637a" :slant italic)
+  '(tree-sitter-hl-face:function :foreground "#d7827e")
+  '(tree-sitter-hl-face:method :foreground "#d7827e")
+  '(tree-sitter-hl-face:method.call :foreground "#d7827e")
+  '(tree-sitter-hl-face:function.call :foreground "#d7827e")
+  '(tree-sitter-hl-face:function.macro :foreground "#907aa9")
+  '(tree-sitter-hl-face:keyword :foreground "#286983")
+  
+  ;; Punctuation, Brackets and Operators (Subtle/Muted purple-gray instead of yellow)
+  '(font-lock-bracket-face :foreground "#908caa")
+  '(font-lock-delimiter-face :foreground "#908caa")
+  '(font-lock-operator-face :foreground "#908caa")
+  
+  ;; Unused variables (Make them more readable: muted color + subtle wave underline)
+  '(eglot-diagnostic-tag-unnecessary-face :foreground "#797593" :underline '(:style wave :color "#797593"))
+  
+  ;; Variables and properties
+  '(font-lock-variable-name-face :foreground "#464261")
+  '(font-lock-property-use-face :slant italic)
+  '(font-lock-property-name-face :foreground "#56949f" :slant italic)
+  )
+
+;; Use the modern rust-ts-mode instead of rustic-mode to get true tree-sitter parsing
+(add-to-list 'major-mode-remap-alist '(rustic-mode . rust-ts-mode))
+(add-to-list 'major-mode-remap-alist '(rust-mode . rust-ts-mode))
+
+;; Ensure LSP (eglot) starts automatically for rust-ts-mode
+(add-hook 'rust-ts-mode-local-vars-hook #'lsp!)
+;; Disable the broken default rust-cargo flycheck checker (eglot will handle diagnostics)
+(add-hook 'rust-ts-mode-hook (lambda () (setq-local flycheck-disabled-checkers '(rust-cargo))))
+
+
+;; Pin tree-sitter-rust to v0.21.2 to avoid ABI version 15 mismatch on Emacs 30.
+;; This makes the environment 100% reproducible across machines.
+(setq treesit-language-source-alist
+      '((rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.21.2")))
+
+(load! "rust-ts-fixes")
+

@@ -52,3 +52,4 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 (package! rose-pine :recipe (:host github :repo "donniebreve/rose-pine-doom-emacs"))
+(package! autothemer)
