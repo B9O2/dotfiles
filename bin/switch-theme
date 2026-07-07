@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 THEME=$1
 THEMES_DIR=~/.dotfiles/themes
