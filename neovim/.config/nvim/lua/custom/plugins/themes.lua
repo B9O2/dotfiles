@@ -9,6 +9,9 @@ return {
       styles = { transparency = true },
       highlight_groups = {
         Visual = { bg = "rose", fg = "base", inherit = false },
+        -- Dim and italicize hidden and ignored files in Snacks picker
+        SnacksPickerPathHidden = { fg = "subtle", italic = true },
+        SnacksPickerPathIgnored = { fg = "subtle", italic = true },
       },
     },
     config = function(_, opts)

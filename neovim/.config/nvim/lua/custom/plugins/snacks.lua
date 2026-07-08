@@ -6,7 +6,38 @@ return {
     dashboard = { enabled = false },
     explorer = { enabled = true },
     indent = { enabled = true },
-    picker = { enabled = true },
+    picker = { 
+      enabled = true, 
+      layout = { preset = "ivy" },
+      sources = {
+        files = { 
+          hidden = true, 
+          ignored = true,
+          transform = function(item)
+            if item.file and (item.file:match("^%.") or item.file:match("/%.")) then
+              item.hidden = true
+            end
+            if item.file and (item.file:match("node_modules/") or item.file:match("target/")) then
+              item.ignored = true
+            end
+            return item
+          end
+        },
+        grep = { 
+          hidden = true, 
+          ignored = true,
+          transform = function(item)
+            if item.file and (item.file:match("^%.") or item.file:match("/%.")) then
+              item.hidden = true
+            end
+            if item.file and (item.file:match("node_modules/") or item.file:match("target/")) then
+              item.ignored = true
+            end
+            return item
+          end
+        }
+      }
+    },
     notifier = { enabled = true },
   },
   keys = {
