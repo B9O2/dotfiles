@@ -87,40 +87,6 @@
 (after! eglot
   (add-to-list 'eglot-ignored-server-capabilities :semanticTokensProvider))
 
-;; Align rose-pine-dawn with Neovim
-(custom-theme-set-faces! 'doom-rose-pine-dawn
-  '(font-lock-type-face :foreground "#56949f" :slant normal)
-  '(font-lock-builtin-face :foreground "#286983")
-  '(font-lock-function-name-face :foreground "#d7827e")
-  '(font-lock-keyword-face :foreground "#286983")
-  '(font-lock-constant-face :foreground "#ea9d34")
-  '(font-lock-function-call-face :foreground "#d7827e")
-  '(rustic-derive-type-face :foreground "#ea9d34")
-  '(tree-sitter-hl-face:type :foreground "#56949f")
-  '(tree-sitter-hl-face:type.builtin :foreground "#56949f")
-  '(tree-sitter-hl-face:constructor :foreground "#ea9d34")
-  '(tree-sitter-hl-face:constant :foreground "#ea9d34")
-  '(tree-sitter-hl-face:variable.builtin :foreground "#b4637a" :slant italic)
-  '(tree-sitter-hl-face:function :foreground "#d7827e")
-  '(tree-sitter-hl-face:method :foreground "#d7827e")
-  '(tree-sitter-hl-face:method.call :foreground "#d7827e")
-  '(tree-sitter-hl-face:function.call :foreground "#d7827e")
-  '(tree-sitter-hl-face:function.macro :foreground "#907aa9")
-  '(tree-sitter-hl-face:keyword :foreground "#286983")
-  
-  ;; Punctuation, Brackets and Operators (Subtle/Muted purple-gray instead of yellow)
-  '(font-lock-bracket-face :foreground "#908caa")
-  '(font-lock-delimiter-face :foreground "#908caa")
-  '(font-lock-operator-face :foreground "#908caa")
-  
-  ;; Unused variables (Make them more readable: muted color + subtle wave underline)
-  '(eglot-diagnostic-tag-unnecessary-face :foreground "#797593" :underline '(:style wave :color "#797593"))
-  
-  ;; Variables and properties
-  '(font-lock-variable-name-face :foreground "#464261")
-  '(font-lock-property-use-face :slant italic)
-  '(font-lock-property-name-face :foreground "#56949f" :slant italic)
-  )
 
 ;; Use the modern rust-ts-mode instead of rustic-mode to get true tree-sitter parsing
 (add-to-list 'major-mode-remap-alist '(rustic-mode . rust-ts-mode))
@@ -139,3 +105,23 @@
 
 (load! "rust-ts-fixes")
 
+;; Tweak doom-modeline to look more like Neovim's mini.statusline
+(setq doom-modeline-height 28
+      doom-modeline-bar-width 0
+      doom-modeline-buffer-file-name-style 'relative-to-project
+      doom-modeline-icon t
+      doom-modeline-major-mode-icon t
+      doom-modeline-modal-icon nil
+      doom-modeline-enable-word-count nil
+      doom-modeline-workspace-name nil
+      doom-modeline-persp-name nil
+      doom-modeline-env-version nil
+      doom-modeline-buffer-encoding t
+      mode-line-percent-position nil) ; Remove 'All' or 'Top' from position
+
+
+(after! doom-modeline
+  ;; Redefine the main modeline to move position to the far right, and keep encoding
+  (doom-modeline-def-modeline 'main
+    '(bar window-number modals matches buffer-info remote-host parrot selection-info)
+    '(misc-info battery grip irc mu4e gnus github debug repl lsp minor-modes input-method major-mode buffer-encoding vcs check buffer-position)))

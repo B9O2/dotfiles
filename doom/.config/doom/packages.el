@@ -51,5 +51,5 @@
 ;; (unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
-(package! rose-pine :recipe (:host github :repo "donniebreve/rose-pine-doom-emacs"))
+(package! rose-pine :recipe (:host github :repo "tamnd/rose-pine-doom-emacs"))
 (package! autothemer)

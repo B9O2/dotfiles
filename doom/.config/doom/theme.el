@@ -1,1 +1,1 @@
-(setq doom-theme 'doom-rose-pine-moon)
+(setq doom-theme 'doom-rose-pine-dawn)
