@@ -42,6 +42,27 @@ return {
   },
   keys = {
     {
+      '<leader>.',
+      function()
+        Snacks.picker.files()
+      end,
+      desc = 'Find files (SPC .)',
+    },
+    {
+      '<leader><leader>',
+      function()
+        Snacks.picker.files()
+      end,
+      desc = 'Find files (SPC SPC)',
+    },
+    {
+      '<leader>,',
+      function()
+        Snacks.picker.buffers()
+      end,
+      desc = 'Switch buffers (SPC ,)',
+    },
+    {
       '<leader>bd',
       function()
         Snacks.bufdelete()

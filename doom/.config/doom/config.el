@@ -121,6 +121,14 @@
 
 
 (after! doom-modeline
+  ;; Show full names for Evil states instead of shortened tags
+  (setq evil-normal-state-tag   (propertize " Normal " 'face 'doom-modeline-evil-normal-state)
+        evil-insert-state-tag   (propertize " Insert " 'face 'doom-modeline-evil-insert-state)
+        evil-visual-state-tag   (propertize " Visual " 'face 'doom-modeline-evil-visual-state)
+        evil-motion-state-tag   (propertize " Motion " 'face 'doom-modeline-evil-motion-state)
+        evil-replace-state-tag  (propertize " Replace " 'face 'doom-modeline-evil-replace-state)
+        evil-emacs-state-tag    (propertize " Emacs " 'face 'doom-modeline-evil-emacs-state))
+
   ;; Redefine the main modeline to move position to the far right, and keep encoding
   (doom-modeline-def-modeline 'main
     '(bar window-number modals matches buffer-info remote-host parrot selection-info)
