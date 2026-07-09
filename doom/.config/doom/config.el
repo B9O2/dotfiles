@@ -85,8 +85,18 @@
       '((rust "https://github.com/tree-sitter/tree-sitter-rust" "master" "v0.21.2")))
 
 (after! eglot
-  (add-to-list 'eglot-ignored-server-capabilities :semanticTokensProvider))
+  (add-to-list 'eglot-ignored-server-capabilities :semanticTokensProvider)
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              ;; Doom's eglot module explicitly tells Eglot to stay out of Flymake.
+              ;; Since we uninstalled flycheck-eglot, we MUST manually turn Flymake back on!
+              (flymake-mode 1)
+              ;; Combine hover docs and diagnostics
+              (setq-local eldoc-documentation-strategy #'eldoc-documentation-compose))))
 
+(after! flycheck
+  ;; Cleanly disable flycheck for rust so it doesn't run alongside eglot/flymake
+  (setq flycheck-global-modes '(not rust-ts-mode rust-mode rustic-mode)))
 
 ;; Use the modern rust-ts-mode instead of rustic-mode to get true tree-sitter parsing
 (add-to-list 'major-mode-remap-alist '(rustic-mode . rust-ts-mode))
@@ -94,8 +104,6 @@
 
 ;; Ensure LSP (eglot) starts automatically for rust-ts-mode
 (add-hook 'rust-ts-mode-local-vars-hook #'lsp!)
-;; Disable the broken default rust-cargo flycheck checker (eglot will handle diagnostics)
-(add-hook 'rust-ts-mode-hook (lambda () (setq-local flycheck-disabled-checkers '(rust-cargo))))
 
 
 ;; Pin tree-sitter-rust to v0.21.2 to avoid ABI version 15 mismatch on Emacs 30.

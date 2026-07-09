@@ -53,3 +53,6 @@
 ;; (unpin! t)
 (package! rose-pine :recipe (:host github :repo "tamnd/rose-pine-doom-emacs"))
 (package! autothemer)
+
+;; Disable the buggy flycheck-eglot package completely
+(package! flycheck-eglot :disable t)

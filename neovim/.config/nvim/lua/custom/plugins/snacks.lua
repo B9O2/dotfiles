@@ -6,37 +6,37 @@ return {
     dashboard = { enabled = false },
     explorer = { enabled = true },
     indent = { enabled = true },
-    picker = { 
-      enabled = true, 
-      layout = { preset = "ivy" },
+    picker = {
+      enabled = true,
+      layout = { preset = 'ivy' },
       sources = {
-        files = { 
-          hidden = true, 
+        files = {
+          hidden = true,
           ignored = true,
           transform = function(item)
-            if item.file and (item.file:match("^%.") or item.file:match("/%.")) then
+            if item.file and (item.file:match '^%.' or item.file:match '/%.') then
               item.hidden = true
             end
-            if item.file and (item.file:match("node_modules/") or item.file:match("target/")) then
+            if item.file and (item.file:match 'node_modules/' or item.file:match 'target/') then
               item.ignored = true
             end
             return item
-          end
+          end,
         },
-        grep = { 
-          hidden = true, 
+        grep = {
+          hidden = true,
           ignored = true,
           transform = function(item)
-            if item.file and (item.file:match("^%.") or item.file:match("/%.")) then
+            if item.file and (item.file:match '^%.' or item.file:match '/%.') then
               item.hidden = true
             end
-            if item.file and (item.file:match("node_modules/") or item.file:match("target/")) then
+            if item.file and (item.file:match 'node_modules/' or item.file:match 'target/') then
               item.ignored = true
             end
             return item
-          end
-        }
-      }
+          end,
+        },
+      },
     },
     notifier = { enabled = true },
   },
@@ -82,13 +82,6 @@ return {
         Snacks.explorer()
       end,
       desc = 'Toggle Explorer',
-    },
-    {
-      '<leader><space>',
-      function()
-        Snacks.picker.buffers()
-      end,
-      desc = '[ ] Find existing buffers',
     },
     {
       '<leader>sf',
