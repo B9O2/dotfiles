@@ -1,5 +1,6 @@
 return {
   "TheNoeTrevino/haunt.nvim",
+  enabled = false,
   -- default config: change to your liking, or remove it to use defaults
   ---@class HauntConfig
   opts = {

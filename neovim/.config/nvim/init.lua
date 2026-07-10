@@ -82,24 +82,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
--- Automatically change the working directory if launched with a directory argument (e.g. `nvim ~/.config/nvim-mine`)
-vim.api.nvim_create_autocmd('VimEnter', {
-  desc = 'Auto change directory and open file tree if opening a folder',
-  callback = function()
-    local arg = vim.fn.argv(0)
-    if arg ~= '' and vim.fn.isdirectory(arg) == 1 then
-      vim.api.nvim_set_current_dir(arg)
-      -- Explicitly open Snacks explorer to show the folder contents
-      vim.schedule(function()
-        if package.loaded['snacks'] then
-          require('snacks').explorer { cwd = arg }
-        else
-          vim.cmd 'Explore' -- fallback to netrw if snacks isn't ready
-        end
-      end)
-    end
-  end,
-})
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode

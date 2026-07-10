@@ -8,7 +8,7 @@ return {
     indent = { enabled = true },
     picker = {
       enabled = true,
-      layout = { preset = 'ivy' },
+      layout = { preset = 'ivy', preview = 'main' },
       sources = {
         files = {
           hidden = true,
@@ -84,18 +84,18 @@ return {
       desc = 'Toggle Explorer',
     },
     {
-      '<leader>sf',
+      '<leader>ff',
       function()
         Snacks.picker.files()
       end,
-      desc = '[S]earch [F]iles',
+      desc = '[F]ind [F]iles',
     },
     {
-      '<leader>sg',
+      '<leader>sp',
       function()
         Snacks.picker.grep()
       end,
-      desc = '[S]earch by [G]rep',
+      desc = '[S]earch [P]roject (Grep)',
     },
     {
       '<leader>un',
@@ -112,21 +112,42 @@ return {
       desc = 'Notification History',
     },
     {
-      '<leader>sh',
+      '<leader>hh',
       function()
         Snacks.picker.help()
       end,
-      desc = '[S]earch [H]elp',
+      desc = '[H]elp Pages',
     },
     {
-      '<leader>sk',
+      '<leader>hk',
       function()
         Snacks.picker.keymaps()
       end,
-      desc = '[S]earch [K]eymaps',
+      desc = '[H]elp [K]eymaps',
     },
     {
-      '<leader>sp',
+      '<leader>ht',
+      function()
+        Snacks.picker.colorschemes()
+      end,
+      desc = '[H]elp [T]heme (Colorschemes)',
+    },
+    {
+      '<leader>hm',
+      function()
+        Snacks.picker.man()
+      end,
+      desc = '[H]elp [M]an Pages',
+    },
+    {
+      '<leader>hc',
+      function()
+        Snacks.picker.commands()
+      end,
+      desc = '[H]elp [C]ommands',
+    },
+    {
+      '<leader>sP',
       function()
         Snacks.picker.pickers()
       end,
@@ -168,18 +189,47 @@ return {
       desc = '[S]earch [R]esume',
     },
     {
-      '<leader>s.',
+      '<leader>fr',
       function()
         Snacks.picker.recent()
       end,
-      desc = '[S]earch Recent Files ("." for repeat)',
+      desc = '[F]ind [R]ecent Files',
     },
     {
-      '<leader>sn',
+      '<leader>fc',
       function()
         Snacks.picker.files { cwd = vim.fn.stdpath 'config' }
       end,
-      desc = '[S]earch [N]eovim files',
+      desc = '[F]ind [C]onfig files',
+    },
+    {
+      '<leader>pp',
+      function()
+        Snacks.picker.projects()
+      end,
+      desc = '[P]roject switch/projects',
+    },
+    {
+      '<leader>pf',
+      function()
+        Snacks.picker.files()
+      end,
+      desc = '[P]roject [F]iles',
+    },
+    {
+      '<leader>ps',
+      function()
+        Snacks.picker.grep()
+      end,
+      desc = '[P]roject [S]earch (grep)',
+    },
+    {
+      '<leader>sb',
+      function()
+        Snacks.picker.lines()
+      end,
+      desc = '[S]earch [B]uffer lines',
     },
   },
 }
+
