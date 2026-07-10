@@ -47,6 +47,7 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>c', group = '[C]ode' },
       { '<leader>f', group = '[F]ind' },
       { '<leader>p', group = '[P]roject' },
+      { '<leader>q', group = '[Q]uit/Session' },
       { '<leader>s', group = '[S]earch' },
       { '<leader>t', group = '[T]oggle' },
       { '<leader>h', group = '[H]elp' },
