@@ -1,3 +1,24 @@
+local function find_files_current_dir()
+  local cwd = nil
+  if vim.bo.filetype == 'oil' then
+    cwd = require('oil').get_current_dir()
+  else
+    cwd = vim.fn.expand '%:p:h'
+    if cwd == '' or vim.fn.isdirectory(cwd) == 0 then
+      cwd = vim.loop.cwd()
+    end
+  end
+  Snacks.picker.files {
+    cwd = cwd,
+    title = 'Find Files (' .. vim.fn.fnamemodify(cwd, ':~') .. ')',
+  }
+end
+
+local function find_files_project()
+  local cwd = vim.loop.cwd()
+  Snacks.picker.files { title = 'Project Files (' .. vim.fn.fnamemodify(cwd, ':~') .. ')' }
+end
+
 return {
   'folke/snacks.nvim',
   priority = 1000,
@@ -8,6 +29,7 @@ return {
     indent = { enabled = true },
     picker = {
       enabled = true,
+      main = { current = true },
       layout = { preset = 'ivy', preview = 'main' },
       sources = {
         files = {
@@ -43,16 +65,12 @@ return {
   keys = {
     {
       '<leader>.',
-      function()
-        Snacks.picker.files()
-      end,
+      find_files_current_dir,
       desc = 'Find files (SPC .)',
     },
     {
       '<leader><leader>',
-      function()
-        Snacks.picker.files()
-      end,
+      find_files_project,
       desc = 'Find files (SPC SPC)',
     },
     {
@@ -76,19 +94,11 @@ return {
       end,
       desc = 'Delete Other Buffers',
     },
-    {
-      '<leader>e',
-      function()
-        Snacks.explorer()
-      end,
-      desc = 'Toggle Explorer',
-    },
+
     {
       '<leader>ff',
-      function()
-        Snacks.picker.files()
-      end,
-      desc = '[F]ind [F]iles',
+      find_files_current_dir,
+      desc = '[F]ind [F]iles (Current Dir)',
     },
     {
       '<leader>sp',
@@ -212,14 +222,16 @@ return {
     {
       '<leader>pf',
       function()
-        Snacks.picker.files()
+        local cwd = vim.loop.cwd()
+        Snacks.picker.files { title = 'Project Files (' .. vim.fn.fnamemodify(cwd, ':~') .. ')' }
       end,
       desc = '[P]roject [F]iles',
     },
     {
       '<leader>ps',
       function()
-        Snacks.picker.grep()
+        local cwd = vim.loop.cwd()
+        Snacks.picker.grep { title = 'Project Search (' .. vim.fn.fnamemodify(cwd, ':~') .. ')' }
       end,
       desc = '[P]roject [S]earch (grep)',
     },
@@ -232,4 +244,3 @@ return {
     },
   },
 }
-

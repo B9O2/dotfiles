@@ -6,9 +6,6 @@
 
 source $HOME/.zsh_plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-alias v='nvim'
-alias e='emacsclient -t'
-
 # Add dotfiles bin to PATH for switch-theme script
 export PATH="$HOME/.dotfiles/bin:$PATH"
 
@@ -46,3 +43,8 @@ compdef _switch_theme_completion switch-theme
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
+
+# Alias
+alias v='nvim'
+alias e='emacsclient -t'
+alias ls='ls -lh --color'
