@@ -12,6 +12,11 @@ return {
         end
         return "make install_jsregexp"
       end)(),
+      opts = {
+        history = true,
+        region_check_events = "InsertEnter,CursorMoved",
+        delete_check_events = "TextChanged,TextChangedI",
+      },
     },
     "folke/lazydev.nvim",
   },
