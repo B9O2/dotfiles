@@ -55,14 +55,14 @@ return {
       desc = 'Debug: Step Out',
     },
     {
-      '<leader>d',
+      '<leader>db',
       function()
         require('dap').toggle_breakpoint()
       end,
       desc = 'Debug: Toggle Breakpoint',
     },
     {
-      '<leader>D',
+      '<leader>dB',
       function()
         require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end,
@@ -75,6 +75,20 @@ return {
         require('dapui').toggle()
       end,
       desc = 'Debug: See last session result.',
+    },
+    {
+      '<leader>dt',
+      function()
+        require('dap-go').debug_test()
+      end,
+      desc = 'Debug: Go Test',
+    },
+    {
+      '<leader>dl',
+      function()
+        require('dap-go').debug_last()
+      end,
+      desc = 'Debug: Last Go Test',
     },
   },
   config = function()

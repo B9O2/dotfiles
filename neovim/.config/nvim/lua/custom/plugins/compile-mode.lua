@@ -11,6 +11,9 @@ return {
     ---@type CompileModeOpts
     vim.g.compile_mode = {
       baleia_setup = true, -- enable colored output
+      input_word_completion = true, -- fix tab completion duplicating text
+      default_command = "", -- default to empty instead of 'make -k'
+      focus_compilation_buffer = true, -- auto-focus output window
     }
   end,
   keys = {
