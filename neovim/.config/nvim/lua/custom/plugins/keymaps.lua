@@ -269,4 +269,18 @@ pcall(function()
   end, { desc = 'Diff This ~' })
 end)
 
+-- ============================================================================
+-- 5. OBSIDIAN GLOBAL KEYMAPS
+-- 这些快捷键在任意 buffer 中均可使用，通过 cmd 字段触发 obsidian.nvim 懒加载
+-- ============================================================================
+map('n', '<leader>oo', '<cmd>ObsidianOpen<cr>',            { desc = 'Open in Obsidian App' })
+map('n', '<leader>of', '<cmd>ObsidianQuickSwitch<cr>',     { desc = 'Find Note' })
+map('n', '<leader>os', '<cmd>ObsidianSearch<cr>',          { desc = 'Search Notes' })
+map('n', '<leader>on', '<cmd>ObsidianNew<cr>',             { desc = 'New Note' })
+map('n', '<leader>oN', '<cmd>ObsidianNewFromTemplate<cr>', { desc = 'New Note from Template' })
+map('n', '<leader>ot', '<cmd>ObsidianTags<cr>',            { desc = 'Search Tags' })
+map('n', '<leader>od', '<cmd>ObsidianToday<cr>',           { desc = "Today's Note" })
+map('n', '<leader>oD', '<cmd>ObsidianDailies<cr>',         { desc = 'Daily Notes' })
+map('n', '<leader>ow', '<cmd>ObsidianWorkspace<cr>',       { desc = 'Switch Workspace' })
+
 return {}

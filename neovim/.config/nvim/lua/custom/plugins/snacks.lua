@@ -37,22 +37,22 @@ return {
       sources = {
         projects = {
           format = function(item, picker)
-            local path = item.file or item.text or ""
+            local path = item.file or item.text or ''
             -- get the directory name (project name)
-            local name = vim.fn.fnamemodify(path, ":t")
-            if name == "" then
-              path = path:gsub("/$", "")
-              name = vim.fn.fnamemodify(path, ":t")
+            local name = vim.fn.fnamemodify(path, ':t')
+            if name == '' then
+              path = path:gsub('/$', '')
+              name = vim.fn.fnamemodify(path, ':t')
             end
             -- get the parent path
-            local dir = vim.fn.fnamemodify(path, ":h")
-            
+            local dir = vim.fn.fnamemodify(path, ':h')
+
             local ret = {}
-            local icon = picker.opts.icons.files.dir_open or ""
-            ret[#ret + 1] = { icon .. " ", "SnacksPickerDirectory", virtual = true }
-            ret[#ret + 1] = { name, "SnacksPickerFile" }
-            ret[#ret + 1] = { " " }
-            ret[#ret + 1] = { dir, "SnacksPickerDir" }
+            local icon = picker.opts.icons.files.dir_open or ''
+            ret[#ret + 1] = { icon .. ' ', 'SnacksPickerDirectory', virtual = true }
+            ret[#ret + 1] = { name, 'SnacksPickerFile' }
+            ret[#ret + 1] = { ' ' }
+            ret[#ret + 1] = { dir, 'SnacksPickerDir' }
             return ret
           end,
         },
@@ -89,8 +89,17 @@ return {
   keys = {
     {
       '<leader>.',
-      find_files_current_dir,
-      desc = 'Find files (SPC .)',
+      function()
+        Snacks.scratch()
+      end,
+      desc = 'Scratch',
+    },
+    {
+      '<leader>>',
+      function()
+        Snacks.scratch.select()
+      end,
+      desc = 'Select Scratchs',
     },
     {
       '<leader><leader>',

@@ -23,9 +23,9 @@ return { -- Useful plugin to show you pending keybinds.
         Esc = '<Esc> ',
         ScrollWheelDown = '<ScrollWheelDown> ',
         ScrollWheelUp = '<ScrollWheelUp> ',
+        Search = '/',
         NL = '<NL> ',
         BS = '<BS> ',
-        Space = '<Space> ',
         Tab = '<Tab> ',
         F1 = '<F1>',
         F2 = '<F2>',
@@ -57,6 +57,7 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>w', group = '[W]indow' },
       { '<leader>a', group = '[A]i' },
       { '<leader>S', group = '[S]urround' },
+      { '<leader>o', group = '[O]bsidian', icon = { icon = '󱗖', color = 'purple' } },
     },
   },
 }
