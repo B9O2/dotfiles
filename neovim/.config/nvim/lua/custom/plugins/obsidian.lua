@@ -51,6 +51,11 @@ return {
       },
     },
 
+    daily_notes = {
+      folder = "Daily",
+      date_format = "%Y-%m-%d",
+    },
+
     -- see below for full list of options 👇
   },
 }
