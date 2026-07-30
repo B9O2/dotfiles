@@ -90,6 +90,20 @@ return {
     {
       '<leader>.',
       function()
+        -- 收集决定当前 scratch 身份的上下文
+        local branch = vim.trim(vim.fn.system 'git branch --show-current 2>/dev/null')
+        local ft = vim.bo.filetype ~= '' and vim.bo.filetype or 'lua'
+        local cwd = vim.fn.fnamemodify(vim.loop.cwd() or '', ':~')
+
+        local lines = {
+          ('  ft     : %s'):format(ft),
+          ('  cwd    : %s'):format(cwd),
+        }
+        if branch ~= '' then
+          table.insert(lines, 2, ('  branch : %s'):format(branch))
+        end
+
+        vim.notify(table.concat(lines, '\n'), vim.log.levels.INFO, { title = '󰋊 Scratch' })
         Snacks.scratch()
       end,
       desc = 'Scratch',
