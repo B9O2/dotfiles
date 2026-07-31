@@ -16,8 +16,8 @@ return {
       keymaps = {
         ['g?'] = 'actions.show_help',
         ['<CR>'] = 'actions.select',
-        ["<C-v>"] = "actions.select_vsplit",
-        ["<C-s>"] = false,
+        ['<C-v>'] = 'actions.select_vsplit',
+        ['<C-s>'] = false,
         ['<C-h>'] = false,
         ['<C-t>'] = 'actions.select_tab',
         ['<C-p>'] = 'actions.preview',
@@ -33,19 +33,5 @@ return {
         ['g\\'] = 'actions.toggle_trash',
       },
     }
-
-    -- You can also use '-' to open the parent directory
-    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
-
-    -- 进入 oil buffer 时自动将窗口 cwd 切换到当前目录
-    vim.api.nvim_create_autocmd('BufEnter', {
-      pattern = 'oil://*',
-      callback = function()
-        local dir = require('oil').get_current_dir()
-        if dir then
-          vim.cmd('lcd ' .. vim.fn.fnameescape(dir))
-        end
-      end,
-    })
   end,
 }

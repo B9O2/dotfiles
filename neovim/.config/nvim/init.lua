@@ -81,6 +81,29 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 --  See `:help lua-guide-autocommands`
 
 
+-- 用目录作为参数启动时（如 `v somedir`），自动 cd 进入该目录
+-- oil.nvim 会在 VimEnter 前把目录参数替换为 oil:// URI，需额外处理
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    local arg = vim.fn.argv(0) --[[@as string]]
+    local dir
+
+    if arg:match '^oil://' then
+      -- 去掉 oil:// 前缀，剩余部分即为真实目录路径
+      dir = arg:gsub('^oil://', '')
+    elseif arg ~= '' and vim.fn.isdirectory(arg) == 1 then
+      dir = vim.fn.fnamemodify(arg, ':p')
+    end
+
+    if dir and dir ~= '' then
+      dir = dir:gsub('/$', '') -- 去掉末尾斜杠
+      if vim.fn.isdirectory(dir) == 1 then
+        vim.cmd('cd ' .. vim.fn.fnameescape(dir))
+      end
+    end
+  end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.hl.on_yank()`
