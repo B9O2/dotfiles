@@ -81,22 +81,31 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 --  See `:help lua-guide-autocommands`
 
 
--- 用目录作为参数启动时（如 `v somedir`），自动 cd 进入该目录
--- oil.nvim 会在 VimEnter 前把目录参数替换为 oil:// URI，需额外处理
+-- 启动行为：
+--   无参数      → 打开 Oil（当前目录）
+--   目录参数    → cd 进入该目录（oil.nvim 已接管展示）
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
     local arg = vim.fn.argv(0) --[[@as string]]
-    local dir
 
+    -- 无参数启动：等同于 v .
+    if vim.fn.argc() == 0 then
+      local cwd = vim.fn.fnameescape(vim.fn.getcwd())
+      vim.cmd('cd ' .. cwd)
+      vim.cmd('Oil ' .. cwd)
+      return
+    end
+
+    -- 有目录参数：从 oil:// URI 或普通路径中提取目录并 cd
+    local dir
     if arg:match '^oil://' then
-      -- 去掉 oil:// 前缀，剩余部分即为真实目录路径
       dir = arg:gsub('^oil://', '')
     elseif arg ~= '' and vim.fn.isdirectory(arg) == 1 then
       dir = vim.fn.fnamemodify(arg, ':p')
     end
 
     if dir and dir ~= '' then
-      dir = dir:gsub('/$', '') -- 去掉末尾斜杠
+      dir = dir:gsub('/$', '')
       if vim.fn.isdirectory(dir) == 1 then
         vim.cmd('cd ' .. vim.fn.fnameescape(dir))
       end

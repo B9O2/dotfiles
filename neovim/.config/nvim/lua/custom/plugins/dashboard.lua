@@ -20,9 +20,7 @@ end
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
-  cond = function()
-    return vim.fn.argc() == 0
-  end,
+  cond = false, -- 已切换到 snacks dashboard，如需恢复请改回: function() return vim.fn.argc() == 0 end
   opts = function()
     -- 1. Aperture Science ASCII Logo (保持之前的配置)
     local aperture_logo = {
