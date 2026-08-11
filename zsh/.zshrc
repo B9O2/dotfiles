@@ -8,6 +8,7 @@ source $HOME/.zsh_plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # Add dotfiles bin to PATH for switch-theme script
 export PATH="$HOME/.dotfiles/bin:$PATH"
+export EDITOR="nvim"
 
 # Dynamically load theme environment variables before every prompt
 autoload -Uz add-zsh-hook
@@ -23,6 +24,12 @@ _load_theme_env # Also load it immediately on startup
 # Since zsh-vi-mode overrides keybindings, we MUST load fzf after zsh-vi-mode initializes
 function zvm_after_init() {
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+  # normal 模式下按 m 用 $EDITOR 编辑当前命令行
+  autoload -Uz edit-command-line
+  zle -N edit-command-line
+  zvm_define_widget edit-command-line
+  bindkey -M vicmd 'm' edit-command-line
 }
 
 source $HOME/.zshrc.local

@@ -89,10 +89,16 @@ vim.api.nvim_create_autocmd('VimEnter', {
     local arg = vim.fn.argv(0) --[[@as string]]
 
     -- 无参数启动：等同于 v .
+    -- oil 内部目录加载是异步的，需要 vim.schedule 让事件循环转一圈后再调用
+    -- 同时把初始空 buffer 标记为 wipe，oil 打开后它会被自动清除，消除闪烁
     if vim.fn.argc() == 0 then
-      local cwd = vim.fn.fnameescape(vim.fn.getcwd())
-      vim.cmd('cd ' .. cwd)
-      vim.cmd('Oil ' .. cwd)
+      local cwd = vim.fn.getcwd()
+      vim.cmd('cd ' .. vim.fn.fnameescape(cwd))
+      local init_buf = vim.api.nvim_get_current_buf()
+      vim.bo[init_buf].bufhidden = 'wipe'
+      vim.schedule(function()
+        require('oil').open(cwd)
+      end)
       return
     end
 
