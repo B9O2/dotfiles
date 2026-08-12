@@ -119,6 +119,14 @@ vim.api.nvim_create_autocmd('VimEnter', {
   end,
 })
 
+-- Markdown 局部设置
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  callback = function()
+    vim.opt_local.conceallevel = 1
+  end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.hl.on_yank()`

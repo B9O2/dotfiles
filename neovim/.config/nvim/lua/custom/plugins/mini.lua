@@ -25,6 +25,7 @@ return {
         suffix_next = "n",
       },
     })
+    vim.keymap.set('x', '<leader>s', ':<C-u>lua MiniSurround.add("visual")<CR>', { desc = 'Surround selection' })
     local statusline = require("mini.statusline")
     statusline.setup({ use_icons = vim.g.have_nerd_font })
     statusline.section_location = function()

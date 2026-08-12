@@ -38,24 +38,40 @@ return {
     { "<leader>ox", "<cmd>ObsidianToggleCheckbox<cr>", desc = "Toggle Checkbox" },
     { "<leader>or", "<cmd>ObsidianRename<cr>",         desc = "Rename Note" },
   },
-  opts = {
-    picker = {},
-    workspaces = {
-      -- {
-      --   name = "personal",
-      --   path = "~/vaults/personal",
-      -- },
+  opts = function()
+    -- 按需定义所有可能的 vault，运行时只加载实际存在的目录
+    local all_workspaces = {
       {
         name = "work",
         path = "~/vaults/work",
+        overrides = {
+          daily_notes = { folder = "Weekly-work", date_format = "%Y-W%V" },
+        },
       },
-    },
+      {
+        name = "notes",
+        path = "~/vaults/notes",
+        overrides = {
+          daily_notes = { folder = "Weekly", date_format = "%Y-W%V" },
+        },
+      },
+    }
 
-    daily_notes = {
-      folder = "Daily",
-      date_format = "%Y-%m-%d",
-    },
+    local workspaces = {}
+    for _, ws in ipairs(all_workspaces) do
+      if vim.fn.isdirectory(vim.fn.expand(ws.path)) == 1 then
+        table.insert(workspaces, ws)
+      end
+    end
 
-    -- see below for full list of options 👇
-  },
+    return {
+      picker = {},
+      workspaces = workspaces,
+      -- 全局兜底（无匹配 workspace 时生效）
+      daily_notes = {
+        folder = "Weekly",
+        date_format = "%Y-W%V",
+      },
+    }
+  end,
 }
