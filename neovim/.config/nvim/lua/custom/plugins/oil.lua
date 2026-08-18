@@ -31,6 +31,7 @@ return {
         ['gx'] = 'actions.open_external',
         ['g.'] = 'actions.toggle_hidden',
         ['g\\'] = 'actions.toggle_trash',
+        ['<leader>y'] = 'actions.copy_entry_path',
       },
     }
 

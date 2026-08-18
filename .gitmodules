@@ -12,4 +12,7 @@
 	url = https://github.com/jeffreytse/zsh-vi-mode.git
 [submodule "ghostty/.config/ghostty/shaders"]
 	path = ghostty/.config/ghostty/shaders
-	url = https://github.com/0xhckr/ghostty-shaders.git
+	url = https://github.com/0xhckr/ghostty-shaders
+[submodule "ghostty/.config/ghostty/cursor_shaders"]
+	path = ghostty/.config/ghostty/cursor_shaders
+	url = https://github.com/sahaj-b/ghostty-cursor-shaders
