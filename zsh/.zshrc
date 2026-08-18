@@ -32,6 +32,16 @@ function zvm_after_init() {
   bindkey -M vicmd 'm' edit-command-line
 }
 
+# vi 模式 yank 后同步到系统剪贴板（含 y、yy、yw 等所有 yank 操作）
+function zvm_after_yank() {
+  printf '%s' "$CUTBUFFER" | pbcopy
+}
+
+# delete/change 类操作（dd、cc 等）也同步
+function zvm_after_yank_cutbuffer() {
+  printf '%s' "$CUTBUFFER" | pbcopy
+}
+
 source $HOME/.zshrc.local
 
 # switch-theme auto-completion
