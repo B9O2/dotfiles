@@ -16,3 +16,6 @@
 [submodule "ghostty/.config/ghostty/cursor_shaders"]
 	path = ghostty/.config/ghostty/cursor_shaders
 	url = https://github.com/sahaj-b/ghostty-cursor-shaders
+[submodule "starship/marathon"]
+	path = starship/marathon
+	url = https://github.com/arxae/starship-marathon
