@@ -18,6 +18,8 @@ return {
       require("rose-pine").setup(opts)
       local color_scheme = vim.env.COLOR_SCHEME or "rose-pine"
       if color_scheme == "rose-pine" then
+        vim.cmd("colorscheme rose-pine")
+      elseif color_scheme == "rose-pine-moon" then
         vim.cmd("colorscheme rose-pine-moon")
       elseif color_scheme == "rose-pine-dawn" then
         vim.cmd("colorscheme rose-pine-dawn")
