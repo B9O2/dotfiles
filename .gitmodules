@@ -19,3 +19,6 @@
 [submodule "starship/marathon"]
 	path = starship/marathon
 	url = https://github.com/arxae/starship-marathon
+[submodule "starship/rose-pine"]
+	path = starship/rose-pine
+	url = https://github.com/rose-pine/starship

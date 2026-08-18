@@ -38,6 +38,16 @@ if [ -f "$THEME_DIR/env.sh" ]; then
   cat "$THEME_DIR/env.sh" >> "$ENV_FILE"
 fi
 
+# Set Starship config if exists for this theme, otherwise revert to default
+if [ -f "$THEME_DIR/starship_theme" ]; then
+  STARSHIP_THEME_NAME=$(cat "$THEME_DIR/starship_theme")
+  echo "export STARSHIP_CONFIG=\"$HOME/.dotfiles/starship/$STARSHIP_THEME_NAME\"" >> "$ENV_FILE"
+elif [ -f "$THEME_DIR/starship.toml" ]; then
+  echo "export STARSHIP_CONFIG=\"$THEME_DIR/starship.toml\"" >> "$ENV_FILE"
+else
+  echo "unset STARSHIP_CONFIG" >> "$ENV_FILE"
+fi
+
 # Update agy (Antigravity CLI) theme if specified
 AGY_SETTINGS="$HOME/.gemini/antigravity-cli/settings.json"
 if [ -f "$THEME_DIR/agy_theme" ] && [ -f "$AGY_SETTINGS" ]; then

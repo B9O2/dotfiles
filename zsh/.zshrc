@@ -9,7 +9,6 @@ source $HOME/.zsh_plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # Add dotfiles bin to PATH for switch-theme script
 export PATH="$HOME/.dotfiles/bin:$PATH"
 export EDITOR="nvim"
-export STARSHIP_CONFIG="$HOME/.dotfiles/starship/marathon/marathon.toml"
 
 # Dynamically load theme environment variables before every prompt
 autoload -Uz add-zsh-hook
