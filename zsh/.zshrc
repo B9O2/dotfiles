@@ -23,7 +23,10 @@ _load_theme_env # Also load it immediately on startup
 # Load fzf (gracefully fallback if not installed)
 # Since zsh-vi-mode overrides keybindings, we MUST load fzf after zsh-vi-mode initializes
 function zvm_after_init() {
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  # 使用 command -v 实时检索 PATH，并使用官方推荐的 eval 加载
+  if command -v fzf >/dev/null 2>&1; then
+    eval "$(fzf --zsh)"
+  fi
 
   # normal 模式下按 m 用 $EDITOR 编辑当前命令行
   autoload -Uz edit-command-line
@@ -31,7 +34,6 @@ function zvm_after_init() {
   zvm_define_widget edit-command-line
   bindkey -M vicmd 'm' edit-command-line
 }
-
 source $HOME/.zshrc.local
 
 # switch-theme auto-completion
