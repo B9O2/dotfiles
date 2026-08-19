@@ -55,3 +55,25 @@ fi
 alias v='nvim'
 alias e='emacsclient -t'
 alias ls='ls -lh --color'
+
+
+fif() {
+  local RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case"
+  local INITIAL_QUERY="${1:-}"
+
+  local selected=$(
+    fzf --ansi --disabled --query "$INITIAL_QUERY" \
+        --bind "start:reload:$RG_PREFIX {q}" \
+        --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+        --delimiter : \
+        --preview 'bat --color=always --style=numbers --highlight-line {2} {1} 2>/dev/null || cat -n {1}' \
+        --preview-window 'right,60%,border-left,+{2}+3/3'
+  )
+
+  # 选中后用默认编辑器打开并自动跳转到对应行
+  if [[ -n "$selected" ]]; then
+    local file=$(echo "$selected" | awk -F: '{print $1}')
+    local line=$(echo "$selected" | awk -F: '{print $2}')
+    ${EDITOR:-vim} "+${line}" "$file"
+  fi
+}
