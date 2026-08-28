@@ -1,49 +1,25 @@
 local map = vim.keymap.set
 
--- ============================================================================
--- 1. YOUR CUSTOM KEYMAPS (from ~/.config/nvim/lua/config/keymaps.lua)
--- ============================================================================
-
--- Which-key groups (wrapped in pcall in case which-key loads later)
-pcall(function()
-  local wk = require 'which-key'
-  wk.add {
-    { '<leader>g', group = 'git', icon = { icon = '', color = 'orange' } },
-    { '<leader>gh', group = 'hunks' },
-    { '<leader>m', group = 'marks', icon = { icon = '󰃀' } },
-    { '<leader>w', group = 'windows', icon = { icon = '' } },
-  }
-end)
+map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 map('n', 'd', '"_d')
 map('n', 'D', '"_D')
 map('v', 'd', '"_d')
-
 map('n', 'c', '"_c')
 map('n', 'C', '"_C')
 map('v', 'c', '"_c')
 
 map('n', 'q', '<Nop>', { desc = 'Disable macro recording' })
-
 map('n', '<leader>\\', '<cmd>vsplit<cr>', { desc = 'Split window right' })
 
--- Safe deletion of potentially unset keymaps
-pcall(function()
-  vim.keymap.del('n', 'H')
-end)
-pcall(function()
-  vim.keymap.del('n', 'L')
-end)
-pcall(function()
-  vim.keymap.del('n', '<C-f>')
-end)
+for _, key in ipairs { 'H', 'L', '<C-f>' } do
+  pcall(vim.keymap.del, 'n', key)
+end
 
--- Marks
 map('n', '<leader>md', function()
   local line = vim.api.nvim_win_get_cursor(0)[1]
-  local marks = vim.fn.getmarklist '%'
   local marks_to_delete = {}
-  for _, mark in ipairs(marks) do
+  for _, mark in ipairs(vim.fn.getmarklist '%') do
     if mark.pos[2] == line and mark.mark:match "^'[a-z]$" then
       table.insert(marks_to_delete, mark.mark:sub(2))
     end
@@ -58,9 +34,8 @@ end, { desc = 'Delete marks on current line' })
 
 map('n', '<leader>mo', function()
   local line = vim.api.nvim_win_get_cursor(0)[1]
-  local marks = vim.fn.getmarklist '%'
   local marks_to_delete = {}
-  for _, mark in ipairs(marks) do
+  for _, mark in ipairs(vim.fn.getmarklist '%') do
     if mark.pos[2] ~= line and mark.mark:match "^'[a-z]$" then
       table.insert(marks_to_delete, mark.mark:sub(2))
     end
@@ -73,40 +48,29 @@ map('n', '<leader>mo', function()
   end
 end, { desc = 'Delete all marks except current line' })
 
--- ============================================================================
--- 2. LAZYVIM DEFAULTS (Adapted for pure Neovim)
--- ============================================================================
-
--- better up/down
 map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
 map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
 map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { desc = 'Up', expr = true, silent = true })
 
--- Move to window using the <ctrl> hjkl keys
 map('n', '<C-h>', '<C-w>h', { desc = 'Go to Left Window', remap = true })
 map('n', '<C-j>', '<C-w>j', { desc = 'Go to Lower Window', remap = true })
 map('n', '<C-k>', '<C-w>k', { desc = 'Go to Upper Window', remap = true })
 map('n', '<C-l>', '<C-w>l', { desc = 'Go to Right Window', remap = true })
-
--- Resize window using <ctrl> arrow keys
 map('n', '<C-Up>', '<cmd>resize +2<cr>', { desc = 'Increase Window Height' })
 map('n', '<C-Down>', '<cmd>resize -2<cr>', { desc = 'Decrease Window Height' })
 map('n', '<C-Left>', '<cmd>vertical resize -2<cr>', { desc = 'Decrease Window Width' })
 map('n', '<C-Right>', '<cmd>vertical resize +2<cr>', { desc = 'Increase Window Width' })
 
--- Move Lines
 map('n', '<A-j>', "<cmd>execute 'move .+' . v:count1<cr>==", { desc = 'Move Down' })
 map('n', '<A-k>', "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = 'Move Up' })
 map('i', '<A-j>', '<esc><cmd>m .+1<cr>==gi', { desc = 'Move Down' })
 map('i', '<A-k>', '<esc><cmd>m .-2<cr>==gi', { desc = 'Move Up' })
 map('v', '<A-j>', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
 map('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
--- 可视模式下使用大写 J 和 K 上下移动代码块
 map('v', 'J', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
 map('v', 'K', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
 
--- buffers
 map('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
 map('n', '<S-l>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
 map('n', '[b', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
@@ -115,10 +79,7 @@ map('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
 map('n', '<leader>`', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
 map('n', '<leader>bD', '<cmd>:bd<cr>', { desc = 'Delete Buffer and Window' })
 
--- Clear search, diff update and redraw
 map('n', '<leader>ur', '<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>', { desc = 'Redraw / Clear hlsearch / Diff Update' })
-
--- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map('n', 'n', "'Nn'[v:searchforward].'zv'", { expr = true, desc = 'Next Search Result' })
 map('x', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next Search Result' })
 map('o', 'n', "'Nn'[v:searchforward]", { expr = true, desc = 'Next Search Result' })
@@ -126,24 +87,14 @@ map('n', 'N', "'nN'[v:searchforward].'zv'", { expr = true, desc = 'Prev Search R
 map('x', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev Search Result' })
 map('o', 'N', "'nN'[v:searchforward]", { expr = true, desc = 'Prev Search Result' })
 
--- save file
 map({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
-
---keywordprg
 map('n', '<leader>K', '<cmd>norm! K<cr>', { desc = 'Keywordprg' })
-
--- better indenting
 map('x', '<', '<gv')
 map('x', '>', '>gv')
-
--- commenting
 map('n', 'gco', 'o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Below' })
 map('n', 'gcO', 'O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>', { desc = 'Add Comment Above' })
-
--- new file
 map('n', '<leader>fn', '<cmd>enew<cr>', { desc = 'New File' })
 
--- location list
 map('n', '<leader>xl', function()
   local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
   if not success and err then
@@ -151,7 +102,6 @@ map('n', '<leader>xl', function()
   end
 end, { desc = 'Location List' })
 
--- quickfix list
 map('n', '<leader>xq', function()
   local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
   if not success and err then
@@ -159,10 +109,6 @@ map('n', '<leader>xq', function()
   end
 end, { desc = 'Quickfix List' })
 
-map('n', '[q', vim.cmd.cprev, { desc = 'Previous Quickfix' })
-map('n', ']q', vim.cmd.cnext, { desc = 'Next Quickfix' })
-
--- diagnostic
 local diagnostic_goto = function(next, severity)
   return function()
     vim.diagnostic.jump {
@@ -180,17 +126,49 @@ map('n', '[e', diagnostic_goto(false, 'ERROR'), { desc = 'Prev Error' })
 map('n', ']w', diagnostic_goto(true, 'WARN'), { desc = 'Next Warning' })
 map('n', '[w', diagnostic_goto(false, 'WARN'), { desc = 'Prev Warning' })
 
--- quit
 map('n', '<leader>qq', '<cmd>qa<cr>', { desc = 'Quit All' })
-
--- highlights under cursor
 map('n', '<leader>ui', vim.show_pos, { desc = 'Inspect Pos' })
 map('n', '<leader>uI', function()
   vim.treesitter.inspect_tree()
   vim.api.nvim_input 'I'
 end, { desc = 'Inspect Tree' })
 
--- windows
+local function git_root()
+  local root = vim.fn.systemlist { 'git', 'rev-parse', '--show-toplevel' }[1]
+  if vim.v.shell_error == 0 and root and root ~= '' then
+    return root
+  end
+  return vim.fn.getcwd()
+end
+
+local function terminal(cwd, position, count)
+  Snacks.terminal(nil, {
+    cwd = cwd,
+    count = count,
+    win = { position = position },
+  })
+end
+
+map('n', '<leader>tt', function()
+  terminal(vim.fn.getcwd(), 'float', 1)
+end, { desc = 'Terminal Float' })
+
+map('n', '<leader>ts', function()
+  terminal(vim.fn.getcwd(), 'bottom', 2)
+end, { desc = 'Terminal Split' })
+
+map('n', '<leader>tv', function()
+  terminal(vim.fn.getcwd(), 'right', 3)
+end, { desc = 'Terminal Vertical' })
+
+map('n', '<leader>tg', function()
+  terminal(git_root(), 'bottom', 4)
+end, { desc = 'Git Root Terminal' })
+
+map('n', '<leader>tG', function()
+  Snacks.lazygit { cwd = git_root() }
+end, { desc = 'Lazygit' })
+
 map('n', '<leader>wh', function()
   vim.cmd('vertical resize -' .. (vim.v.count1 * 2))
 end, { desc = 'Decrease Window Width', remap = true })
@@ -212,7 +190,6 @@ map('n', '<leader>w\\', '<C-W>v', { desc = 'Split Window Right', remap = true })
 map('n', '<leader>wd', '<C-W>c', { desc = 'Delete Window', remap = true })
 map('n', '<leader>ww', '<C-W>p', { desc = 'Other Window', remap = true })
 
--- tabs
 map('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
 map('n', '<leader><tab>o', '<cmd>tabonly<cr>', { desc = 'Close Other Tabs' })
 map('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
@@ -221,13 +198,6 @@ map('n', '<leader><tab>]', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
 map('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
 map('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
 
--- ============================================================================
--- 3. SPECIFIC PLUGINS
--- ============================================================================
-
--- ============================================================================
--- 4. GIT KEYMAPS (Lazygit & Gitsigns)
--- ============================================================================
 map('n', '<leader>gg', function()
   require('snacks').lazygit()
 end, { desc = 'Lazygit' })
@@ -244,43 +214,12 @@ map('n', '<leader>gB', function()
   require('snacks').gitbrowse()
 end, { desc = 'Git Browse' })
 
-pcall(function()
-  local gs = require 'gitsigns'
-  map('n', ']h', gs.next_hunk, { desc = 'Next Hunk' })
-  map('n', '[h', gs.prev_hunk, { desc = 'Prev Hunk' })
-  map('n', '<leader>ghs', gs.stage_hunk, { desc = 'Stage Hunk' })
-  map('n', '<leader>ghr', gs.reset_hunk, { desc = 'Reset Hunk' })
-  map('v', '<leader>ghs', function()
-    gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-  end, { desc = 'Stage Hunk' })
-  map('v', '<leader>ghr', function()
-    gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-  end, { desc = 'Reset Hunk' })
-  map('n', '<leader>ghS', gs.stage_buffer, { desc = 'Stage Buffer' })
-  map('n', '<leader>ghu', gs.undo_stage_hunk, { desc = 'Undo Stage Hunk' })
-  map('n', '<leader>ghR', gs.reset_buffer, { desc = 'Reset Buffer' })
-  map('n', '<leader>ghp', gs.preview_hunk, { desc = 'Preview Hunk' })
-  map('n', '<leader>ghb', function()
-    gs.blame_line { full = true }
-  end, { desc = 'Blame Line' })
-  map('n', '<leader>ghd', gs.diffthis, { desc = 'Diff This' })
-  map('n', '<leader>ghD', function()
-    gs.diffthis '~'
-  end, { desc = 'Diff This ~' })
-end)
-
--- ============================================================================
--- 5. OBSIDIAN GLOBAL KEYMAPS
--- 这些快捷键在任意 buffer 中均可使用，通过 cmd 字段触发 obsidian.nvim 懒加载
--- ============================================================================
-map('n', '<leader>oo', '<cmd>ObsidianOpen<cr>',            { desc = 'Open in Obsidian App' })
-map('n', '<leader>of', '<cmd>ObsidianQuickSwitch<cr>',     { desc = 'Find Note' })
-map('n', '<leader>os', '<cmd>ObsidianSearch<cr>',          { desc = 'Search Notes' })
-map('n', '<leader>on', '<cmd>ObsidianNew<cr>',             { desc = 'New Note' })
+map('n', '<leader>oo', '<cmd>ObsidianOpen<cr>', { desc = 'Open in Obsidian App' })
+map('n', '<leader>of', '<cmd>ObsidianQuickSwitch<cr>', { desc = 'Find Note' })
+map('n', '<leader>os', '<cmd>ObsidianSearch<cr>', { desc = 'Search Notes' })
+map('n', '<leader>on', '<cmd>ObsidianNew<cr>', { desc = 'New Note' })
 map('n', '<leader>oN', '<cmd>ObsidianNewFromTemplate<cr>', { desc = 'New Note from Template' })
-map('n', '<leader>ot', '<cmd>ObsidianTags<cr>',            { desc = 'Search Tags' })
-map('n', '<leader>od', '<cmd>ObsidianToday<cr>',           { desc = "Today's Note" })
-map('n', '<leader>oD', '<cmd>ObsidianDailies<cr>',         { desc = 'Daily Notes' })
-map('n', '<leader>ow', '<cmd>ObsidianWorkspace<cr>',       { desc = 'Switch Workspace' })
-
-return {}
+map('n', '<leader>ot', '<cmd>ObsidianTags<cr>', { desc = 'Search Tags' })
+map('n', '<leader>od', '<cmd>ObsidianToday<cr>', { desc = "Today's Note" })
+map('n', '<leader>oD', '<cmd>ObsidianDailies<cr>', { desc = 'Daily Notes' })
+map('n', '<leader>ow', '<cmd>ObsidianWorkspace<cr>', { desc = 'Switch Workspace' })

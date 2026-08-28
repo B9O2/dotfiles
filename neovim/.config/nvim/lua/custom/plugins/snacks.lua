@@ -27,6 +27,11 @@ return {
     dashboard = { enabled = false },
     explorer = { enabled = true },
     indent = { enabled = true },
+    styles = {
+      terminal = {
+        border = 'rounded',
+      },
+    },
     picker = {
       enabled = true,
       main = { current = true },
@@ -114,6 +119,13 @@ return {
         Snacks.scratch.select()
       end,
       desc = 'Select Scratchs',
+    },
+    {
+      '<leader>e',
+      function()
+        Snacks.explorer()
+      end,
+      desc = 'Explorer',
     },
     {
       '<leader><leader>',

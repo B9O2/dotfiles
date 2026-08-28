@@ -1,10 +1,10 @@
 return {
-  "alexpasmantier/krust.nvim",
-  ft = "rust",
+  'alexpasmantier/krust.nvim',
+  ft = 'rust',
   opts = {
-    keymap = "gl", -- Set a keymap for Rust buffers (default: false)
+    keymap = '<leader>rk', -- Set a keymap for Rust buffers (default: false)
     float_win = {
-      border = "rounded", -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
+      border = 'rounded', -- Border style: "none", "single", "double", "rounded", "solid", "shadow"
       auto_focus = false, -- Auto-focus float (default: false)
     },
   },

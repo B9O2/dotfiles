@@ -1,15 +1,15 @@
 return {
-  "stevearc/conform.nvim",
-  event = { "BufWritePre" },
-  cmd = { "ConformInfo" },
+  'stevearc/conform.nvim',
+  event = { 'BufWritePre' },
+  cmd = { 'ConformInfo' },
   keys = {
     {
-      "<leader>cf",
+      '<leader>cf',
       function()
-        require("conform").format({ async = true, lsp_format = "fallback" })
+        require('conform').format { async = true, lsp_format = 'fallback' }
       end,
-      mode = "",
-      desc = "[C]ode [F]ormat",
+      mode = '',
+      desc = '[C]ode [F]ormat',
     },
   },
   opts = {
@@ -21,18 +21,18 @@ return {
       else
         return {
           timeout_ms = 500,
-          lsp_format = "fallback",
+          lsp_format = 'fallback',
         }
       end
     end,
     formatters_by_ft = {
-      go = { "goimports", "golines" },
-      nix = { "nixfmt" },
-      lua = { "stylua" },
+      go = { 'goimports', 'golines' },
+      nix = { 'nixfmt' },
+      lua = { 'stylua' },
     },
     formatters = {
       golines = {
-        args = { "-m", "80" },
+        args = { '-m', '80' },
       },
     },
   },

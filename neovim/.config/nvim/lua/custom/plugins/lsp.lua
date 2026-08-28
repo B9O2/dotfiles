@@ -83,8 +83,9 @@ return {
         end,
       })
 
+      vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'Show diagnostics in float' })
+
       vim.diagnostic.config {
-        vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = 'Show diagnostics in float' }),
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
         underline = { severity = vim.diagnostic.severity.ERROR },
@@ -139,7 +140,12 @@ return {
 
       for server_name, server in pairs(servers) do
         server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        require('lspconfig')[server_name].setup(server)
+        if vim.lsp.config then
+          vim.lsp.config(server_name, server)
+          vim.lsp.enable(server_name)
+        else
+          require('lspconfig')[server_name].setup(server)
+        end
       end
 
       require('mason-lspconfig').setup {

@@ -1,7 +1,7 @@
 return {
-  "folke/todo-comments.nvim",
-  event = { "BufReadPre", "BufNewFile" },
-  dependencies = { "nvim-lua/plenary.nvim" },
+  'folke/todo-comments.nvim',
+  event = { 'BufReadPre', 'BufNewFile' },
+  dependencies = { 'nvim-lua/plenary.nvim' },
   opts = {
     signs = false,
     highlight = {
@@ -12,14 +12,14 @@ return {
     },
     keywords = {
       PROBLEM = {
-        icon = "?",
-        color = "#E0AF68",
-        alt = { "Problem" },
+        icon = '?',
+        color = '#E0AF68',
+        alt = { 'Problem' },
       },
       LEVEL = {
-        icon = "*",
-        color = "#E0AF68",
-        alt = { "Difficulty level" },
+        icon = '*',
+        color = '#E0AF68',
+        alt = { 'Difficulty level' },
       },
     },
   },

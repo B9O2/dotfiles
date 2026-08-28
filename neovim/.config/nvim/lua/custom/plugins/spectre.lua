@@ -3,7 +3,7 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
   keys = {
     {
-      '<leader>sr',
+      '<leader>sR',
       function()
         require('spectre').open()
       end,
