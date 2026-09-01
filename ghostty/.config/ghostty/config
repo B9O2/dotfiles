@@ -66,8 +66,8 @@ macos-icon = custom
 macos-custom-icon = ~/.config/ghostty/Ghostty.icns
 
 # shaders
-custom-shader = ~/.dotfiles/ghostty/.config/ghostty/cursor_shaders/cursor_warp.glsl
-custom-shader = ~/.dotfiles/ghostty/.config/ghostty/shaders/bettercrt.glsl
+# custom-shader = ~/.dotfiles/ghostty/.config/ghostty/cursor_shaders/cursor_warp.glsl
+# custom-shader = ~/.dotfiles/ghostty/.config/ghostty/shaders/bettercrt.glsl
 
 # Bell
 bell-features = no-system,no-audio,no-attention,no-title,no-border
