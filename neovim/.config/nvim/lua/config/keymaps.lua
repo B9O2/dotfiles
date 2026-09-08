@@ -12,10 +12,6 @@ map('v', 'c', '"_c')
 map('n', 'q', '<Nop>', { desc = 'Disable macro recording' })
 map('n', '<leader>\\', '<cmd>vsplit<cr>', { desc = 'Split window right' })
 
-for _, key in ipairs { 'H', 'L', '<C-f>' } do
-  pcall(vim.keymap.del, 'n', key)
-end
-
 map('n', '<leader>md', function()
   local line = vim.api.nvim_win_get_cursor(0)[1]
   local marks_to_delete = {}
@@ -71,8 +67,6 @@ map('v', '<A-k>', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
 map('v', 'J', ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = 'Move Down' })
 map('v', 'K', ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = 'Move Up' })
 
-map('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
-map('n', '<S-l>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
 map('n', '[b', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
 map('n', ']b', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
 map('n', '<leader>bb', '<cmd>e #<cr>', { desc = 'Switch to Other Buffer' })
@@ -134,7 +128,7 @@ map('n', '<leader>uI', function()
 end, { desc = 'Inspect Tree' })
 
 local function git_root()
-  local root = vim.fn.systemlist { 'git', 'rev-parse', '--show-toplevel' }[1]
+  local root = vim.fn.systemlist({ 'git', 'rev-parse', '--show-toplevel' })[1]
   if vim.v.shell_error == 0 and root and root ~= '' then
     return root
   end
