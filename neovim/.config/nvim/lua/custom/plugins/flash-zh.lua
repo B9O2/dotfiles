@@ -1,5 +1,6 @@
 return {
   'rainzm/flash-zh.nvim',
+  enabled = false,
   event = 'VeryLazy',
   dependencies = 'folke/flash.nvim',
   keys = {
