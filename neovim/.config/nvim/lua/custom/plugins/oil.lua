@@ -1,6 +1,9 @@
 return {
   'stevearc/oil.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'refractalize/oil-git-status.nvim',
+  },
   config = function()
     require('oil').setup {
       default_file_explorer = true,
@@ -9,6 +12,9 @@ return {
         'size',
         'mtime',
         'icon',
+      },
+      win_options = {
+        signcolumn = 'yes:2',
       },
       view_options = {
         show_hidden = true,
@@ -34,6 +40,8 @@ return {
         ['<leader>y'] = 'actions.copy_entry_path',
       },
     }
+
+    require('oil-git-status').setup()
 
     -- You can also use '-' to open the parent directory
     vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })

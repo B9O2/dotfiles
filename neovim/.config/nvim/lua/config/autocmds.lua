@@ -1,5 +1,20 @@
 local augroup = vim.api.nvim_create_augroup
 
+vim.api.nvim_create_autocmd('FileType', {
+  group = augroup('custom-quickfix', { clear = true }),
+  pattern = 'qf',
+  callback = function(ev)
+    vim.keymap.set('n', '<CR>', function()
+      local line = vim.fn.line '.'
+      local entry = vim.fn.getqflist()[line]
+      local fname = vim.fn.bufname(entry.bufnr)
+      vim.cmd 'wincmd p'
+      vim.cmd('edit ' .. vim.fn.fnameescape(fname))
+      vim.fn.cursor(entry.lnum, math.max(entry.col, 1))
+    end, { buffer = ev.buf })
+  end,
+})
+
 vim.api.nvim_create_autocmd('VimEnter', {
   group = augroup('custom-startup', { clear = true }),
   callback = function()

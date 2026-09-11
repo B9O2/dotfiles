@@ -92,6 +92,20 @@ map('n', '<leader>xq', function()
   end
 end, { desc = 'Quickfix List' })
 
+map('n', '<leader>gcl', function()
+  local files = vim.fn.systemlist 'git diff --name-only --diff-filter=U'
+  if vim.v.shell_error ~= 0 or #files == 0 then
+    vim.notify('No conflict files', vim.log.levels.INFO)
+    return
+  end
+  local qflist = {}
+  for _, file in ipairs(files) do
+    table.insert(qflist, { filename = file, lnum = 1, text = 'Conflict' })
+  end
+  vim.fn.setqflist(qflist)
+  vim.cmd.copen()
+end, { desc = 'Conflict List' })
+
 local diagnostic_goto = function(next, severity)
   return function()
     vim.diagnostic.jump {
