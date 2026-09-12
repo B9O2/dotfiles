@@ -7,7 +7,7 @@
 source $HOME/.zsh_plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 # Add dotfiles bin to PATH for switch-theme script
-export PATH="$HOME/.dotfiles/bin:$PATH"
+export PATH="$HOME/.dotfiles/bin:$HOME/.config/emacs/bin:$PATH"
 export EDITOR="nvim"
 
 # Dynamically load theme environment variables before every prompt
