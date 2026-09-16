@@ -56,3 +56,6 @@
 
 ;; Disable the buggy flycheck-eglot package completely
 (package! flycheck-eglot :disable t)
+
+;; Extra langs
+(package! protobuf-mode)

@@ -55,7 +55,8 @@ fi
 
 # Alias
 alias v='nvim'
-alias e='emacsclient -t'
+alias e='emacs -nw'
+alias et='emacsclient -t'
 alias ls='ls -lh --color'
 
 fif() {
