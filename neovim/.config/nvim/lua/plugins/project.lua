@@ -14,8 +14,7 @@ return {
       -- pattern 模式下，用来识别根目录的标志性文件/文件夹
       patterns = { '.git', 'Makefile', 'package.json', 'Cargo.toml' },
 
-      -- 是否在切换目录时静默执行（不弹提示）
-      silent_chdir = true,
+      silent_chdir = false,
 
       -- Keep project cwd scoped to the current tab to avoid fighting Oil window-local cwd.
       scope_chdir = 'tab',

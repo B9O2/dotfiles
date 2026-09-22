@@ -25,6 +25,17 @@ return {
         suffix_next = 'n',
       },
     }
+    require('mini.notify').setup {
+      window = {
+        max_width_share = 0.6,
+        config = function()
+          local has_statusline = vim.o.laststatus > 0
+          local pad = vim.o.cmdheight + (has_statusline and 1 or 0)
+          return { anchor = 'SW', col = 0, row = vim.o.lines - pad }
+        end,
+      },
+    }
+    vim.notify = require('mini.notify').make_notify()
     require('mini.pick').setup()
     vim.keymap.set('x', '<leader>s', ':<C-u>lua MiniSurround.add("visual")<CR>', { desc = 'Surround selection' })
     local statusline = require 'mini.statusline'

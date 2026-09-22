@@ -31,9 +31,9 @@ return {
       lua = { 'stylua' },
     },
     formatters = {
-      golines = {
-        args = { '-m', '80' },
-      },
+      -- golines = {
+      --   args = { '-m', '80' },
+      -- },
     },
   },
 }

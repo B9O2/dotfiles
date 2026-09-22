@@ -89,11 +89,11 @@ return {
         },
       },
     },
-    notifier = { enabled = true },
+    notifier = { enabled = false },
   },
   keys = {
     {
-      '<leader>.',
+      '`',
       function()
         -- 收集决定当前 scratch 身份的上下文
         local branch = vim.trim(vim.fn.system 'git branch --show-current 2>/dev/null')
@@ -155,9 +155,28 @@ return {
     },
 
     {
-      '<leader>ff',
+      '<leader>fp',
+      find_files_project,
+      desc = '[F]ind [P]roject files',
+    },
+    {
+      '<leader>f<tab>',
+      function()
+        Snacks.picker.tabs()
+      end,
+      desc = '[F]ind [T]abs',
+    },
+    {
+      '<leader>.',
       find_files_current_dir,
       desc = '[F]ind [F]iles (Current Dir)',
+    },
+    {
+      '<leader>sm',
+      function()
+        Snacks.picker.marks()
+      end,
+      desc = '[S]earch [M]arks',
     },
     {
       '<leader>sp',
@@ -169,14 +188,14 @@ return {
     {
       '<leader>un',
       function()
-        Snacks.notifier.hide()
+        MiniNotify.clear()
       end,
       desc = 'Dismiss All Notifications',
     },
     {
       '<leader>n',
       function()
-        Snacks.notifier.show_history()
+        MiniNotify.show_history()
       end,
       desc = 'Notification History',
     },
@@ -277,22 +296,6 @@ return {
         Snacks.picker.projects()
       end,
       desc = '[P]roject switch/projects',
-    },
-    {
-      '<leader>pf',
-      function()
-        local cwd = vim.loop.cwd()
-        Snacks.picker.files { title = 'Project Files (' .. vim.fn.fnamemodify(cwd, ':~') .. ')' }
-      end,
-      desc = '[P]roject [F]iles',
-    },
-    {
-      '<leader>ps',
-      function()
-        local cwd = vim.loop.cwd()
-        Snacks.picker.grep { title = 'Project Search (' .. vim.fn.fnamemodify(cwd, ':~') .. ')' }
-      end,
-      desc = '[P]roject [S]earch (grep)',
     },
     {
       '<leader>sb',
