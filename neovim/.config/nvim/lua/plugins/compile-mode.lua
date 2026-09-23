@@ -16,8 +16,7 @@ return {
       focus_compilation_buffer = true, -- auto-focus output window
     }
 
-    local root_markers = {
-      '.git',
+    local project_markers = {
       'go.mod',
       'Cargo.toml',
       'package.json',
@@ -30,7 +29,9 @@ return {
     local function compile_root()
       local bufname = vim.api.nvim_buf_get_name(0)
       local start = bufname ~= '' and bufname or vim.fn.getcwd()
-      return vim.fs.root(start, root_markers) or vim.fn.getcwd()
+      return vim.fs.root(start, project_markers)
+        or vim.fs.root(start, { '.git' })
+        or vim.fn.getcwd()
     end
 
     vim.api.nvim_create_user_command('CompileProject', function()
