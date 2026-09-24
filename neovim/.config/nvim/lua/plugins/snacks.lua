@@ -162,7 +162,27 @@ return {
     {
       '<leader>f<tab>',
       function()
-        Snacks.picker.tabs()
+        local tabs = {}
+        for i = 1, vim.fn.tabpagenr '$' do
+          local winnr = vim.fn.tabpagewinnr(i)
+          local bufnr = vim.fn.tabpagebuflist(i)[winnr]
+          local name = vim.fn.bufname(bufnr)
+          table.insert(tabs, {
+            idx = i,
+            text = i .. ': ' .. (name ~= '' and vim.fn.fnamemodify(name, ':~:.') or '[No Name]'),
+          })
+        end
+        Snacks.picker.pick {
+          title = 'Tabs',
+          items = tabs,
+          format = function(item)
+            return { { item.text } }
+          end,
+          confirm = function(picker, item)
+            picker:close()
+            vim.cmd('tabnext ' .. item.idx)
+          end,
+        }
       end,
       desc = '[F]ind [T]abs',
     },
