@@ -18,6 +18,7 @@ return {
 			},
 		},
 		'folke/lazydev.nvim',
+		'windwp/nvim-autopairs',
 	},
 	opts = {
 		keymap = { preset = 'enter' },
@@ -25,7 +26,7 @@ return {
 		completion = {
 			documentation = { auto_show = false, auto_show_delay_ms = 500 },
 			accept = {
-				auto_brackets = { enabled = true },
+				auto_brackets = { enabled = false },
 			},
 		},
 		sources = {
@@ -36,4 +37,8 @@ return {
 		fuzzy = { implementation = 'lua' },
 		signature = { enabled = true },
 	},
+	config = function(_, opts)
+		require('nvim-autopairs').setup {}
+		require('blink.cmp').setup(opts)
+	end,
 }

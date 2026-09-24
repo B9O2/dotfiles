@@ -21,6 +21,11 @@ return {
         color = '#E0AF68',
         alt = { 'Difficulty level' },
       },
+      FELIX = {
+        icon = '👋',
+        color = '#c4a7e7',
+        alt = { 'Felix' },
+      },
     },
   },
 }

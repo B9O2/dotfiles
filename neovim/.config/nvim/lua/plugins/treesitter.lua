@@ -20,6 +20,8 @@ return {
       'gowork',
       'gosum',
       'nix',
+      'rust',
+      'toml',
     }
     pcall(function()
       require('nvim-treesitter').install(parsers)

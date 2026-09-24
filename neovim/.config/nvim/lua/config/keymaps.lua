@@ -12,6 +12,10 @@ map('v', 'c', '"_c')
 map('n', 'q', '<Nop>', { desc = 'Disable macro recording' })
 map('n', '<leader>\\', '<cmd>vsplit<cr>', { desc = 'Split window right' })
 
+map('n', '<leader>fd', function()
+  vim.cmd 'vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis'
+end, { desc = 'Diff with saved file' })
+
 map('n', '<leader>md', function()
   local line = vim.api.nvim_win_get_cursor(0)[1]
   local marks_to_delete = {}
