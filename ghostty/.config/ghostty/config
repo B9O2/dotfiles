@@ -71,3 +71,6 @@ macos-custom-icon = ~/.config/ghostty/Ghostty.icns
 
 # Bell
 bell-features = no-system,no-audio,no-attention,no-title,no-border
+
+# Command
+command = /usr/bin/env zsh -l
