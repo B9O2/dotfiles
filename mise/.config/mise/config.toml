@@ -1,0 +1,17 @@
+[tools]
+node = "lts"
+go = "latest"
+python = "latest"
+rust = "latest"
+
+"aqua:neovim/neovim" = "latest"
+lazygit = "latest"
+fzf = "latest"
+bat = "latest"
+ripgrep = "latest"
+starship = "latest"
+"aqua:tree-sitter/tree-sitter" = "latest"
+"aqua:wakatime/wakatime-cli" = "latest"
+
+[settings]
+experimental = true
