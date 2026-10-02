@@ -3,6 +3,7 @@
 # zle -N edit-command-line
 #
 # bindkey -M vicmd 'v' edit-command-line
+eval "$(mise activate zsh)"
 
 source $HOME/.zsh_plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 

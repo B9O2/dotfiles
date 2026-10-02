@@ -23,6 +23,8 @@ macos-non-native-fullscreen = false
 macos-window-shadow = false
 macos-option-as-alt = left
 
+window-decoration = false
+
                            
 # 设置背景透明度 (0.0 到 1.
 background-opacity = 0.9   
@@ -32,7 +34,7 @@ background-blur-radius = 20
 
 
 font-family = Google Sans Code
-font-size = 18
+font-size = 15
 
 # Dynamically loaded theme (controlled by switch-theme script)
 config-file = ?theme
