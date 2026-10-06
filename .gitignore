@@ -9,5 +9,6 @@ data
 client_*
 *.DS_Store
 .zshrc.local
+neovim/.config/nvim/lua/matugen.lua
 
 # tmux/.config/tmux/plugins
