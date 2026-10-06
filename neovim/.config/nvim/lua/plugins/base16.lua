@@ -1,7 +1,7 @@
 return { 'RRethy/base16-nvim',
   lazy = false,
   config = function()
-    if vim.env.COLOR_SCHEME ~= 'Default' then
+    if vim.env.COLOR_SCHEME ~= 'noctalia' then
       return
     end
 

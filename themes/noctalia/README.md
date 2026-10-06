@@ -1,5 +1,5 @@
-Default theme
-=============
+Noctalia theme
+==============
 
 This theme releases the overlays managed by `switch-theme` so external tools,
 such as Noctalia templates, can control the active theme.

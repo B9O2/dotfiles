@@ -58,7 +58,7 @@ return {
     config = function(_, opts)
       require('rose-pine').setup(opts)
       local scheme = color_scheme()
-      if scheme == 'Default' then
+      if scheme == 'noctalia' then
         apply_noctalia_theme()
       elseif scheme == 'rose-pine' then
         vim.cmd.colorscheme 'rose-pine'
