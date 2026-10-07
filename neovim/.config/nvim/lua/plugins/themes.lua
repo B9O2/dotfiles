@@ -1,18 +1,5 @@
 local function apply_transparent_background()
-  local groups = {
-    'Normal',
-    'NormalNC',
-    'NormalFloat',
-    'FloatBorder',
-    'SignColumn',
-    'EndOfBuffer',
-    'LineNr',
-    'FoldColumn',
-  }
-
-  for _, group in ipairs(groups) do
-    vim.cmd('highlight ' .. group .. ' guibg=NONE ctermbg=NONE')
-  end
+  require('config.transparent').apply()
 end
 
 vim.api.nvim_create_autocmd({ 'ColorScheme', 'VimEnter' }, {

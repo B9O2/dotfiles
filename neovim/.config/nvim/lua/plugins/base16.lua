@@ -6,6 +6,9 @@ return { 'RRethy/base16-nvim',
     end
 
     local ok, matugen = pcall(require, 'matugen')
-    if ok then matugen.setup() end
+    if ok then
+      matugen.setup()
+      require('config.transparent').apply()
+    end
   end,
 }
