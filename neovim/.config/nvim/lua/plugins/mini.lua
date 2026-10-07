@@ -29,9 +29,7 @@ return {
       window = {
         max_width_share = 0.6,
         config = function()
-          local has_statusline = vim.o.laststatus > 0
-          local pad = vim.o.cmdheight + (has_statusline and 1 or 0)
-          return { anchor = 'SW', col = 0, row = vim.o.lines - pad }
+          return { anchor = 'NE', col = vim.o.columns, row = 0 }
         end,
       },
     }
