@@ -25,12 +25,10 @@ macos-option-as-alt = left
 
 window-decoration = false
 
-                           
 # 设置背景透明度 (0.0 到 1.
-background-opacity = 0.9   
-                           
-# 设置背景模糊半径（建议开 
-background-blur-radius = 20
+background-opacity = 0.98   
+# 设置背景模糊半径（建议开
+background-blur-radius = 30
 
 
 font-family = Google Sans Code
