@@ -224,3 +224,6 @@ map('n', '<leader>ot', '<cmd>ObsidianTags<cr>', { desc = 'Search Tags' })
 map('n', '<leader>od', '<cmd>ObsidianToday<cr>', { desc = "Today's Note" })
 map('n', '<leader>oD', '<cmd>ObsidianDailies<cr>', { desc = 'Daily Notes' })
 map('n', '<leader>ow', '<cmd>ObsidianWorkspace<cr>', { desc = 'Switch Workspace' })
+
+map({ 'n', 'x' }, '<CR>', function() require('vim.treesitter._select').select_parent(vim.v.count1) end, { desc = 'Expand Selection' })
+map('x', '<BS>', function() require('vim.treesitter._select').select_child(vim.v.count1) end, { desc = 'Shrink Selection' })
