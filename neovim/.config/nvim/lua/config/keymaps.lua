@@ -2,6 +2,9 @@ local map = vim.keymap.set
 
 map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+map('x', '<', '<gv', { desc = 'Indent Left' })
+map('x', '>', '>gv', { desc = 'Indent Right' })
+
 map('n', 'd', '"_d')
 map('n', 'D', '"_D')
 map('v', 'd', '"_d')
