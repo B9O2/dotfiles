@@ -13,6 +13,7 @@ fzf = "latest"
 bat = "latest"
 ripgrep = "latest"
 starship = "latest"
+tmux = "latest"
 "aqua:tree-sitter/tree-sitter" = "latest"
 "aqua:wakatime/wakatime-cli" = "latest"
 
