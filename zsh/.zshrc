@@ -79,3 +79,17 @@ fif() {
     ${EDITOR:-vim} "+${line}" "$file"
   fi
 }
+
+# Added by iDev
+export PATH="/Users/innie/.comate/bin:$PATH"
+
+# Added by iDev (zulu-cli)
+export PATH="/Users/innie/.comate/zulu-cli/bin:$PATH"
+
+# icode
+export PATH="/Users/innie/.icode/bin:$PATH"
+alias icode-cli='icode'
+
+# icode completion
+fpath=(/Users/innie/.zsh/completions $fpath)
+autoload -Uz compinit && compinit
