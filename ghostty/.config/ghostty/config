@@ -23,7 +23,7 @@ macos-non-native-fullscreen = false
 macos-window-shadow = false
 macos-option-as-alt = left
 
-window-decoration = false
+window-decoration = true
 
 # 设置背景透明度 (0.0 到 1.
 background-opacity = 0.98   
@@ -70,6 +70,7 @@ macos-custom-icon = ~/.config/ghostty/Ghostty.icns
 # custom-shader = ~/.dotfiles/ghostty/.config/ghostty/shaders/bettercrt.glsl
 
 # Bell
+# no-title,no-border
 bell-features = no-system,no-audio,no-attention,no-title,no-border
 
 # Command

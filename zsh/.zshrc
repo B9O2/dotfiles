@@ -93,3 +93,6 @@ alias icode-cli='icode'
 # icode completion
 fpath=(/Users/innie/.zsh/completions $fpath)
 autoload -Uz compinit && compinit
+
+# Added by relay-cli installer
+export PATH="/Users/innie/.local/bin:$PATH"
